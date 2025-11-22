@@ -63,7 +63,7 @@ constexpr float GetJumpDuration(std::optional<float> inputNjs,
     return NECaches::VariableMovementDataProvider->get_jumpDuration();
   }
 
-  float njs = inputNjs.value_or(NECaches::NECaches::VariableMovementDataProvider->get_noteJumpSpeed());
+  float njs = inputNjs.value_or(NECaches::VariableMovementDataProvider->get_noteJumpSpeed());
   float spawnOffset = inputOffset.value_or(NECaches::InitData->noteJumpValue);
   auto valueType = NECaches::InitData->noteJumpValueType;
   if (valueType == GlobalNamespace::BeatmapObjectSpawnMovementData::NoteJumpValueType::JumpDuration) {
@@ -84,7 +84,8 @@ constexpr float GetJumpDuration(std::optional<float> inputNjs,
 
 inline float GetSpawnAheadTime(std::optional<float> inputNjs,
                                std::optional<float> inputOffset) {
-  return 0.5f + (GetJumpDuration(inputNjs, inputOffset) * 0.5f);
+  float moveDuration = GlobalNamespace::VariableMovementDataProvider::kMoveDuration;
+  return moveDuration + (GetJumpDuration(inputNjs, inputOffset) * 0.5f);
 }
 
 float HighestJumpPosYForLineLayer(float lineLayer);

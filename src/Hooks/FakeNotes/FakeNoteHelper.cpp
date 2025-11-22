@@ -14,6 +14,12 @@
 
 using namespace GlobalNamespace;
 
+/**
+ * @brief Checks if a note is a fake note.
+ * 
+ * @param noteData The note data to check.
+ * @return true if the note is fake, false if the note is not fake.
+ */
 bool FakeNoteHelper::GetFakeNote(NoteData* noteData) {
   auto customNoteData = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(noteData);
   if (!customNoteData || !customNoteData.value()->customData->value) {

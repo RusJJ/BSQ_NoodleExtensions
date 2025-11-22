@@ -1,8 +1,14 @@
+#!/usr/bin/env pwsh
+
 param(
     [Parameter(ValueFromRemainingArguments=$true)]
     [string[]]$args,
-    [switch]$log = $false,
-    [switch]$release = $false
+
+    [Parameter(Mandatory = $false)]
+    [Switch] $log,
+
+    [Parameter(Mandatory = $false)]
+    [Switch]$release
 )
 
 if ($release) {
@@ -11,7 +17,7 @@ if ($release) {
     & $PSScriptRoot/build.ps1
 }
 if ($?) {
-    adb push build/libchroma.so /sdcard/ModData/com.beatgames.beatsaber/Modloader/mods/libchroma.so
+    # adb push build/libchroma.so /sdcard/ModData/com.beatgames.beatsaber/Modloader/mods/libchroma.so
     if ($?) {
         adb shell am force-stop com.beatgames.beatsaber
         adb shell am start com.beatgames.beatsaber/com.unity3d.player.UnityPlayerActivity

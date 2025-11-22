@@ -1,3 +1,5 @@
+#!/usr/bin/env pwsh
+
 Param(
     [Parameter(Mandatory=$false)]
     [Switch]$clean,
@@ -14,7 +16,14 @@ if ($clean.IsPresent)
     }
 }
 
-$NDKPath = Get-Content $PSScriptRoot/ndkpath.txt
+if (Test-Path "$PSScriptRoot/ndkpath.txt")
+{
+    $NDKPath = Get-Content $PSScriptRoot/ndkpath.txt
+} else {
+    $NDKPath = $ENV:ANDROID_NDK_HOME
+}
+
+Write-Host "Using NDK Path: $NDKPath"
 
 if (($clean.IsPresent) -or (-not (Test-Path -Path "build")))
 {
@@ -27,3 +36,4 @@ $buildType = if ($release.IsPresent) { "RelWithDebInfo" } else { "Debug" }
 
 & cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE="$buildType" .
 & cmake --build ./build 
+exit $LASTEXITCODE

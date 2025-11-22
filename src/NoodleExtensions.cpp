@@ -23,6 +23,7 @@ SafePtr<GlobalNamespace::IJumpOffsetYProvider> NECaches::JumpOffsetYProvider;
 SafePtr<GlobalNamespace::VariableMovementDataProvider> NECaches::VariableMovementDataProvider;
 SafePtr<GlobalNamespace::BeatmapObjectSpawnController::InitData> NECaches::InitData;
 SafePtr<GlobalNamespace::BeatmapObjectSpawnController>  NECaches::beatmapObjectSpawnController;
+std::shared_ptr<NoodleExtensions::Pool::NoodleMovementDataProviderPool> NECaches::noodleMovementDataProviderPool;
 
 void InstallAndRegisterAll() {
   // Force load to ensure order

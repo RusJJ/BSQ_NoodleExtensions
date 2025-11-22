@@ -27,8 +27,9 @@ MAKE_HOOK_MATCH(BasicBeatmapObjectManager_Init, &BasicBeatmapObjectManager::Init
                                  burstSliderGameNotePool, bombNotePool, obstaclePool, sliderPools);
   if (!Hooks::isNoodleHookEnabled()) return;
 
-  //TODO: WHAT DOES THIS MEAN????
-  //getActiveObstacles().emplace(List<ObstacleController*>::New_ctor());
+  // This makes sure that the list of obstacles is cleared every time a new BasicBeatmapObjectManager is initialized (on new level load or restart)
+  // Without this, dead obstaclecontrollers would pile up in the list and cause nullref exceptions later on
+  getActiveObstacles().emplace(ListW<UnityW<ObstacleController>>());
 }
 
 MAKE_HOOK_MATCH(BasicBeatmapObjectManager_get_activeObstacleControllers,
