@@ -5,6 +5,7 @@
 #include "GlobalNamespace/BeatmapData.hpp"
 #include "GlobalNamespace/BeatmapEventData.hpp"
 #include "GlobalNamespace/BeatmapObjectSpawnMovementData.hpp"
+#include "GlobalNamespace/StaticBeatmapObjectSpawnMovementData.hpp"
 #include "GlobalNamespace/NoteCutDirection.hpp"
 #include "GlobalNamespace/NoteData.hpp"
 #include "GlobalNamespace/NoteLineLayer.hpp"
@@ -33,9 +34,8 @@ MAKE_HOOK_MATCH(BeatmapObjectSpawnController_Start, &BeatmapObjectSpawnControlle
   BeatmapObjectSpawnController_Start(self);
 }
 
-MAKE_HOOK_MATCH(GetSliderSpawnData, &BeatmapObjectSpawnMovementData::GetSliderSpawnData,
-                SliderSpawnData, BeatmapObjectSpawnMovementData* self,
-                SliderData* normalSliderData) {
+MAKE_HOOK_MATCH(GetSliderSpawnData, &BeatmapObjectSpawnMovementData::GetSliderSpawnData, SliderSpawnData,
+                BeatmapObjectSpawnMovementData* self, SliderData* normalSliderData) {
 
   if (!Hooks::isNoodleHookEnabled()) return GetSliderSpawnData(self, normalSliderData);
 
@@ -66,17 +66,18 @@ MAKE_HOOK_MATCH(GetSliderSpawnData, &BeatmapObjectSpawnMovementData::GetSliderSp
   Vector3 tailOffset =
       SpawnDataHelper::GetNoteOffset(self, tailLineIndex, gravityOverride ? tailLineLayer : tailStartLineLayer);
 
-  float headGravity = SpawnDataHelper::GetGravityBase(headLineLayer, gravityOverride ? headLineLayer : headStartLinelayer);
-  float tailGravity = SpawnDataHelper::GetGravityBase(tailLineLayer, gravityOverride ? tailLineLayer : tailStartLineLayer);
+  float headGravity =
+      SpawnDataHelper::GetGravityBase(headLineLayer, gravityOverride ? headLineLayer : headStartLinelayer);
+  float tailGravity =
+      SpawnDataHelper::GetGravityBase(tailLineLayer, gravityOverride ? tailLineLayer : tailStartLineLayer);
 
   result = SliderSpawnData(headOffset, headGravity, tailOffset, tailGravity);
 
   return result;
 }
 
-MAKE_HOOK_MATCH(GetObstacleSpawnData, &BeatmapObjectSpawnMovementData::GetObstacleSpawnData,
-                ObstacleSpawnData, BeatmapObjectSpawnMovementData* self,
-                ObstacleData* normalObstacleData) {
+MAKE_HOOK_MATCH(GetObstacleSpawnData, &BeatmapObjectSpawnMovementData::GetObstacleSpawnData, ObstacleSpawnData,
+                BeatmapObjectSpawnMovementData* self, ObstacleData* normalObstacleData) {
   if (!Hooks::isNoodleHookEnabled()) return GetObstacleSpawnData(self, normalObstacleData);
 
   if (!il2cpp_utils::AssignableFrom<CustomJSONData::CustomObstacleData*>(normalObstacleData->klass))
@@ -104,22 +105,27 @@ MAKE_HOOK_MATCH(GetObstacleSpawnData, &BeatmapObjectSpawnMovementData::GetObstac
 
   float obstacleHeight;
   if (height.has_value()) {
-    obstacleHeight = height.value() * 0.6f;
+    obstacleHeight = height.value() * GlobalNamespace::StaticBeatmapObjectSpawnMovementData::kNoteLinesDistance;
   } else {
     // _topObstaclePosY =/= _obstacleTopPosY
-    obstacleHeight = std::min(obstacleData->height * 0.6f, self->_obstacleTopPosY - obstacleOffset.y);
+    obstacleHeight =
+        std::min(obstacleData->height * GlobalNamespace::StaticBeatmapObjectSpawnMovementData::kNoteLinesDistance,
+                 self->_obstacleTopPosY - obstacleOffset.y);
   }
 
-  float obstacleWidth = width.value_or(obstacleData->width) * 0.6f;
+  float obstacleWidth =
+      width.value_or(obstacleData->width) * GlobalNamespace::StaticBeatmapObjectSpawnMovementData::kNoteLinesDistance;
+  // Adjust X offset so width is centered relative to the single-line width
+  obstacleOffset.x +=
+      (obstacleWidth - GlobalNamespace::StaticBeatmapObjectSpawnMovementData::kNoteLinesDistance) * 0.5f;
 
   result = ObstacleSpawnData(obstacleOffset, obstacleWidth, obstacleHeight);
 
   return result;
 }
 
-MAKE_HOOK_MATCH(GetJumpingNoteSpawnData, &BeatmapObjectSpawnMovementData::GetJumpingNoteSpawnData,
-                NoteSpawnData, BeatmapObjectSpawnMovementData* self,
-                NoteData* normalNoteData) {
+MAKE_HOOK_MATCH(GetJumpingNoteSpawnData, &BeatmapObjectSpawnMovementData::GetJumpingNoteSpawnData, NoteSpawnData,
+                BeatmapObjectSpawnMovementData* self, NoteData* normalNoteData) {
   if (!Hooks::isNoodleHookEnabled()) return GetJumpingNoteSpawnData(self, normalNoteData);
 
   auto noteDataCast = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(normalNoteData);
@@ -149,7 +155,9 @@ MAKE_HOOK_MATCH(GetJumpingNoteSpawnData, &BeatmapObjectSpawnMovementData::GetJum
   float offsetStartRow = flipLineIndex.value_or(lineIndex);
   float offsetStartHeight = gravityOverride ? lineLayer : startLineLayer;
 
-  Vector3 const noteOffset2 = SpawnDataHelper::GetNoteOffset(self, offsetStartRow, offsetStartHeight);
+  Vector3 const noteOffset2 = (noteData->colorType != GlobalNamespace::ColorType::None)
+                                  ? SpawnDataHelper::GetNoteOffset(self, offsetStartRow, offsetStartHeight)
+                                  : noteOffset;
 
   auto result = NoteSpawnData(noteOffset2, noteOffset2, noteOffset, gravity);
 
