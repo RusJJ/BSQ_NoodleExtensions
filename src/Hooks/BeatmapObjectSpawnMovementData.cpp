@@ -157,7 +157,7 @@ MAKE_HOOK_MATCH(GetJumpingNoteSpawnData, &BeatmapObjectSpawnMovementData::GetJum
 
   Vector3 const noteOffset2 = (noteData->colorType != GlobalNamespace::ColorType::None)
                                   ? SpawnDataHelper::GetNoteOffset(self, offsetStartRow, offsetStartHeight)
-                                  : noteOffset;
+                                  : (gravityOverride ? SpawnDataHelper::GetNoteOffset(self, lineIndex, lineLayer) : noteOffset);
 
   auto result = NoteSpawnData(noteOffset2, noteOffset2, noteOffset, gravity);
 
