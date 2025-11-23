@@ -186,8 +186,8 @@ MAKE_HOOK_MATCH(ObstacleController_Init, &ObstacleController::Init, void, Obstac
   noteOffset.z = 0;
   ad.noteOffset = noteOffset;
 
-  self->_stretchableObstacle->SetAllProperties(self->width * 0.98f, self->height, self->length,
-                                              self->_stretchableObstacle->_obstacleFrame->color, self->_audioTimeSyncController->songTime);
+  self->_stretchableObstacle->SetAllProperties(self->_width * 0.98f, self->_height, self->_length,
+                                              self->_color, self->_audioTimeSyncController->songTime);
   self->_bounds = self->_stretchableObstacle->bounds;
   setBounds();
 
