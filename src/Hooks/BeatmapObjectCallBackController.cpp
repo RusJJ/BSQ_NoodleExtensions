@@ -35,8 +35,8 @@ static GlobalNamespace::BeatmapObjectSpawnMovementData* movementData;
 inline float GetSpawnAheadTime(BeatmapObjectSpawnController::InitData* initData,
                                BeatmapObjectSpawnMovementData* movementData, std::optional<float> inputNjs,
                                std::optional<float> inputOffset) {
-  return 0.5f +
-         (SpawnDataHelper::GetJumpDuration(inputNjs, inputOffset) * 0.5f);
+  float const moveDuration = GlobalNamespace::VariableMovementDataProvider::kMoveDuration;
+  return moveDuration + (SpawnDataHelper::GetJumpDuration(inputNjs, inputOffset) * 0.5f);
 }
 
 inline float ObjectSortGetTime(BeatmapDataItem* n) {
