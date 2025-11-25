@@ -8,6 +8,7 @@
 #include "GlobalNamespace/BeatmapObjectManager.hpp"
 #include "GlobalNamespace/NoteController.hpp"
 #include "GlobalNamespace/ObstacleController.hpp"
+#include "GlobalNamespace/SliderController.hpp"
 
 #include "NEHooks.h"
 #include "custom-json-data/shared/CustomBeatmapData.h"

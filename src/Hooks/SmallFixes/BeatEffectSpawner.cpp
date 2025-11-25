@@ -11,6 +11,9 @@
 #include "GlobalNamespace/AudioTimeSyncController.hpp"
 #include "GlobalNamespace/MemoryPoolContainer_1.hpp"
 #include "GlobalNamespace/ILazyCopyHashSet_1.hpp"
+#include "GlobalNamespace/BloomFogSO.hpp"
+#include "GlobalNamespace/NoteFloorMovement.hpp"
+#include "GlobalNamespace/NoteMovement.hpp"
 #include "GlobalNamespace/LazyCopyHashSet_1.hpp"
 
 #include "System/Action_1.hpp"
@@ -23,6 +26,8 @@
 #include "AssociatedData.h"
 #include "NEHooks.h"
 #include "custom-json-data/shared/CustomBeatmapData.h"
+
+#include "sombrero/shared/FastColor.hpp"
 
 using namespace GlobalNamespace;
 using namespace UnityEngine;
@@ -49,7 +54,8 @@ MAKE_HOOK_MATCH(BeatEffectSpawner_HandleNoteDidStartJump, &BeatEffectSpawner::Ha
     return;
   }
   ColorType colorType = noteController->noteData->colorType;
-  Color color = (colorType != ColorType::None) ? self->_colorManager->ColorForType(colorType) : self->_bombColorEffect;
+  Sombrero::FastColor color =
+      (colorType != ColorType::None) ? self->_colorManager->ColorForType(colorType) : self->_bombColorEffect;
   auto beatEffect = self->_beatEffectPoolContainer->Spawn();
   beatEffect->didFinishEvent->Add(reinterpret_cast<IBeatEffectDidFinishEvent*>(self));
 
@@ -60,10 +66,9 @@ MAKE_HOOK_MATCH(BeatEffectSpawner_HandleNoteDidStartJump, &BeatEffectSpawner::Ha
 
   beatEffect->get_transform()->SetPositionAndRotation(jumpStartPos - NEVector::Vector3(0.0f, 0.15f, 0.0f),
                                                       NEVector::Quaternion::identity());
+  // end transpile
 
-  beatEffect->Init(color, self->_effectDuration, worldRotation);
-
-  //
+  beatEffect->Init(color * self->_bloomFog->noteSpawnIntensity, self->_effectDuration, worldRotation);
 }
 
 void InstallBeatEffectSpawnerHooks() {
