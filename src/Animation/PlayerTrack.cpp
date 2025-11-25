@@ -184,9 +184,11 @@ void PlayerTrack::OnDestroy() {
 void PlayerTrack::UpdateDataOld() {
   float noteLinesDistance = GlobalNamespace::StaticBeatmapObjectSpawnMovementData::kNoteLinesDistance;
 
-  std::optional<NEVector::Quaternion> rotation = track.GetPropertyNamed(PropertyNames::Rotation).GetQuat();
-  std::optional<NEVector::Vector3> position = track.GetPropertyNamed(PropertyNames::Position).GetVec3();
-  std::optional<NEVector::Quaternion> localRotation = track.GetPropertyNamed(PropertyNames::LocalRotation).GetQuat();
+  std::optional<NEVector::Quaternion> rotation = track.GetPropertyNamed(PropertyNames::Rotation).GetQuat(this->lastCheckedTime);
+  std::optional<NEVector::Vector3> position =
+      track.GetPropertyNamed(PropertyNames::Position).GetVec3(this->lastCheckedTime);
+  std::optional<NEVector::Quaternion> localRotation =
+      track.GetPropertyNamed(PropertyNames::LocalRotation).GetQuat(this->lastCheckedTime);
 
   if (NECaches::LeftHandedMode) {
     rotation = Animation::MirrorQuaternionNullable(rotation);
