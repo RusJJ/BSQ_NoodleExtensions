@@ -19,7 +19,7 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [ ] Implement saber trail parenting to player track
 - [X] Fix parenting inconsistencies (likely order based e.g "Make a Wish")
 - [X] Fix obstacle spawn, duration and speed e.g `Try This` the arrows are in the lane before moved. 
-- [ ] Fix obstacle rotation e.g flower in `Try`.
+- [x] Fix obstacle rotation e.g flower in `Try`.
 - [ ] Fix Chroma not overriding player's override environment and colors
 
 ### [Recorded](https://drive.google.com/drive/folders/1XNpSEJ44uwEr9L9W3qukeGNnQX24wF0U?usp=drive_link) Maps
@@ -28,20 +28,20 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
   - [ ] 0:50 The obstacles next to the player may not be positioned correctly
   - [ ] 0:56 Track does not rotate smoothly
   - [ ] 1:34 Circle of arrows despawn or does not follow player (Also 1.37)
+- [ ] [As the World Caves In](https://beatsaver.com/maps/210e3) (4/12/25)
+  - [ ] [Awaiting analysis]
 - [ ] [BSSDHUYR Megamix 2023](https://beatsaver.com/maps/39736) (25/11/25)
   - [ ] Crashes
-- [ ] [Centipede](https://beatsaver.com/maps/293ab) (26/11/25)
+- [ ] [Centipede](https://beatsaver.com/maps/293ab) (4/12/25)
   - [ ] [Awaiting analysis]
-- [ ] [Change of Scene](https://beatsaver.com/maps/3f19a) (25/11/25)
-  - [ ] Environment pieces aren't being removed
-  - [ ] Player is slightly elevated above the track
-  - [ ] Note colors frequently don't change
-  - [ ] 0:00 Title shows as CHANGE OF SCE--:
-  - [ ] 1:49 Track doesn't follow player
-  - [ ] Find more issues once environment pieces can be cleared
+- [ ] [Change of Scene](https://beatsaver.com/maps/3f19a) (4/12/25)
+  - [x] Player is slightly elevated above the track
+  - [x] 0:00 Title shows as CHANGE OF SCE--:
+  - [x] 1:49 Track doesn't follow player
+  - [ ] [Awaiting analysis]
 - [ ] [C18H27NO3 (Mawntee)](https://beatsaver.com/maps/17d7e) (26/11/25)
   - [ ] [Awaiting analysis]
-- [ ] [Disaster](https://beatsaver.com/maps/1dc64) (26/11/25)
+- [ ] [Disaster](https://beatsaver.com/maps/1dc64) (4/12/25)
   - [ ] [Awaiting analysis]
 - [ ] [Doppelganger](https://beatsaver.com/maps/d53c) (25/11/25)
   - [x] Audio being drowned out
@@ -52,7 +52,8 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
   - [ ] 2:08 Obstacles are at the wrong Y position
   - [ ] 3:04 Obstacle timing issues
   - [x] 3:04 Track teleports with no smoothing
-- [ ] [Echo](https://beatsaver.com/maps/269a7) (25/11/25)
+- [ ] [Echo](https://beatsaver.com/maps/269a7) (4/12/25)
+  - [x] 2:20 Rotated tracks are missing
   - [ ] [Awaiting analysis]
 - [ ] [Glorious Octagon of Destiny](https://beatsaver.com/maps/26ad0) (26/11/25)
   - [ ] 0:19 "VIVA" text comes in from top and bottom rather than spinning in from sides
@@ -67,17 +68,18 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
   - [ ] 1:47 Wall text doesn't move
   - [ ] 2:32 Large note is normal scale in mirror
   - [ ] 2:46 Some walls are unintentionally hyper, some aren't
-  - [ ] 3:05 Wall text is missing or offscreen
+  - [ ] 3:05 Wall text is centered and doesn't scroll
   - [ ] 3:14 Notes are missing
   - [ ] 3:14 Obstacles are missing
   - [ ] 4:00 "321" wall text is delivered as several very large grains of sugar in succession on the main track
   - [x] 4:10 Notes and Super Hexagon obstacles are missing
   - [ ] 4:31 "LEVEL FAILED" text is either further away or smaller than normal
+  - [ ] 4:31 Funny wall in first quadrant of recording
   - [ ] 4:31 Notes are missing
   - [ ] 4:52 Wall text is missing
   - [ ] 5:21 Unintentional hyper walls
   - [ ] 5:21 The "printing" obstacle doesn't move
-  - [ ] 5:33 Wall sign is missing
+  - [ ] 5:33 Wall sign is far away
   - [ ] 5:42 Notes are missing
   - [x] 5:57 Wall arrows are on top of each other
   - [ ] 5:57 Wall arrows don't duplicate (Also 1.37)
@@ -86,27 +88,36 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
   - [ ] 6:51 Unintentional hyper walls in Papyrus section
   - [ ] 7:27 Wall text missing letters (Also 1.37)
 - [x] [IGDWUTSWHWHMTC (QueenChief)](https://beatsaver.com/maps/20bc7) (26/11/25)
-- [ ] [Make a Wish](https://beatsaver.com/maps/1a32d) (26/11/25)
+- [ ] [Make a Wish](https://beatsaver.com/maps/1a32d) (4/12/25)
   - [ ] [Awaiting analysis]
-- [ ] [Midnight Lady](https://beatsaver.com/maps/da60) (26/11/25)
+- [ ] [Midnight Lady](https://beatsaver.com/maps/da60) (4/12/25)
+  - [x] 0:46 Saxaphones have certain walls that rotate in opposite directions
   - [ ] [Awaiting analysis]
-- [ ] [Noodle Animation Stuff](https://beatsaver.com/maps/1a53c) (25/11/25)
+- [ ] [Noodle Animation Stuff](https://beatsaver.com/maps/1a53c) (4/12/25)
   - [ ] [Awaiting analysis]
 - [ ] [NULCTRL Meiso Flip](https://beatsaver.com/maps/ed2a) (25/11/25)
+  - [ ] [Awaiting analysis]
+- [ ] [Over Again](https://beatsaver.com/maps/2a093) (4/12/25)
   - [ ] [Awaiting analysis]
 - [ ] [Paradigm](https://beatsaver.com/maps/3bbb0) (25/11/25)
   - [ ] Crashes
 - [ ] [PAUSE](https://beatsaver.com/maps/17e36) (25/11/25)
   - [x] Notes are missing during the pause effect
   - [ ] 1:18 Unintentional hyper walls
+- [ ] [Pictured as Perfect](https://beatsaver.com/maps/3f6e7) (4/12/25)
+  - [ ] [Awaiting analysis]
 - [x] [Real or Lie (Pixelguy)](https://beatsaver.com/maps/126e4) (26/11/25)
 - [ ] [Signager](https://beatsaver.com/maps/12498) (26/11/25)
   - [ ] [Awaiting analysis]
-- [ ] [Six Forty Seven (Reddek)](https://beatsaver.com/maps/2c89c) (25/11/25)
+- [ ] [Six Forty Seven (Reddek)](https://beatsaver.com/maps/2c89c) (4/12/25)
+  - [x] All of the wall decorations are positioned very very wrong
   - [ ] [Awaiting analysis]
 - [ ] [Six Forty Seven (SuperMemer417, nasafrasa)](https://beatsaver.com/maps/2a2bd) (26/11/25)
-  - [ ] Environment pieces aren't being removed
-- [ ] [Try](https://beatsaver.com/maps/14d64) (26/11/25)
+  - [ ] Environment pieces aren't being removed (Probably fixed, just needs a replay)
+- [ ] [Takeoff](https://beatsaver.com/maps/2c1ff) (4/12/25)
+  - [ ] Crashes
+- [ ] [Try](https://beatsaver.com/maps/14d64) (4/12/25)
+  - [x] 0:00 Flower is messed up
   - [ ] [Awaiting analysis]
 - [ ] [Try This](https://beatsaver.com/maps/decf) (26/11/25)
   - [x] Arrow walls disappear early
@@ -114,15 +125,13 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [ ] [Up & Down](https://beatsaver.com/maps/11cf8) (25/11/25)
   - [ ] Environment pieces aren't being removed
   - [x] 1:00 Animated notes spawn in late
-- [ ] [Up & Down (Remastered)](https://beatsaver.com/maps/2c2f4) (26/11/25)
-  - [ ] Environment arrows are missing, perhaps a lighting issue
-  - [ ] Environment pieces aren't being removed
-  - [ ] 0:00 Platform underneath the player is missing
+- [ ] [Up & Down (Remastered)](https://beatsaver.com/maps/2c2f4) (4/12/25)
   - [x] 0:03 Track doesn't rotate with the player
   - [ ] 0:33 Decorative obstacles are missing
   - [ ] 0:33 Half the notes are missing
   - [ ] 1:05 Notes are supposed to change color, instead aren't visible
   - [ ] 1:54 Tease notes are missing
+  - [ ] [Awaiting analysis]
 
 ## Bonus 1.40.8 fixes / features
 
