@@ -5,6 +5,7 @@
 #include "beatsaber-hook/shared/utils/il2cpp-type-check.hpp"
 
 #include <utility>
+#include <array>
 #include "Animation/AnimationHelper.h"
 #include "UnityEngine/GameObject.hpp"
 #include "GlobalNamespace/BeatmapObjectSpawnController.hpp"
@@ -65,35 +66,6 @@ void ParentObject::UpdateData(bool force) {
     UpdateDataOld(force);
     return;
   }
-  if (force) {
-    lastCheckedTime = TimeUnit();
-  }
-
-  auto const rotation = track.GetPropertyNamed(PropertyNames::Rotation).GetQuat(lastCheckedTime);
-  auto const localRotation = track.GetPropertyNamed(PropertyNames::LocalRotation).GetQuat(lastCheckedTime);
-  auto const position = track.GetPropertyNamed(PropertyNames::Position).GetVec3(lastCheckedTime);
-  auto const localPosition = track.GetPropertyNamed(PropertyNames::LocalPosition).GetVec3(lastCheckedTime);
-  auto const scale = track.GetPropertyNamed(PropertyNames::Scale).GetVec3(lastCheckedTime);
-
-  auto transform = origin;
-
-  if (rotation) {
-    transform->set_rotation(rotation.value());
-  } else if (localRotation) {
-    transform->set_localRotation(localRotation.value());
-  }
-
-  if (position) {
-    transform->set_position(position.value());
-  } else if (localPosition) {
-    transform->set_localPosition(localPosition.value());
-  }
-
-  if (scale) {
-    transform->set_localScale(scale.value());
-  }
-
-  lastCheckedTime = getCurrentTime();
 }
 
 void ParentObject::UpdateDataOld(bool forced) {
@@ -170,7 +142,6 @@ void ParentObject::AssignTrack(ParentTrackEventData const& parentTrackEventData)
                                    ", "),
                          parentTrackEventData.parentTrack.v2);
 
-
   parentTrackEventData.parentTrack.RegisterGameObject(parentGameObject);
 
   for (auto track : parentTrackEventData.childrenTracks) {
@@ -182,7 +153,7 @@ void ParentObject::AssignTrack(ParentTrackEventData const& parentTrackEventData)
     for (auto parentObject : ParentController::parentObjects) {
       // this code is ugly but whatever, keep the original above as a reference
       if (!parentObject) continue;
-      
+
       // track->gameObjectModificationEvent -= { &ParentObject::HandleGameObject, parentObject };
       RemoveCallback(track, parentObject);
       parentObject->childrenTracks.erase(track);
@@ -208,43 +179,43 @@ void ParentObject::AssignTrack(ParentTrackEventData const& parentTrackEventData)
   ParentController::parentObjects.emplace_back(instance);
 
   if (instance->track.v2) {
-    if (parentTrackEventData.pos.has_value()) {
-      instance->startPos = *parentTrackEventData.pos;
+
+    auto startPos = parentTrackEventData.offsetPosition;
+    auto startRot = parentTrackEventData.worldRotation;
+    auto startLocalRot = parentTrackEventData.transformData.localRotation;
+    auto startScale = parentTrackEventData.transformData.scale;
+
+    // set initial values
+    if (startPos.has_value()) {
+      instance->startPos = *startPos;
       transform->set_localPosition(instance->startPos * StaticBeatmapObjectSpawnMovementData::kNoteLinesDistance);
     }
 
-    if (parentTrackEventData.rot.has_value()) {
-      instance->startRot = *parentTrackEventData.rot;
+    if (startRot.has_value()) {
+      instance->startRot = *startRot;
       instance->startLocalRot = instance->startRot;
       transform->set_localPosition(instance->startRot * NEVector::Vector3(transform->get_localPosition()));
       transform->set_localRotation(instance->startRot);
     }
 
-    if (parentTrackEventData.localRot.has_value()) {
-      instance->startLocalRot = instance->startRot * *parentTrackEventData.localRot;
+    if (startLocalRot.has_value()) {
+      instance->startLocalRot = instance->startRot * *startLocalRot;
       transform->set_localRotation(NEVector::Quaternion(transform->get_localRotation()) * instance->startLocalRot);
     }
 
-    if (parentTrackEventData.scale.has_value()) {
-      instance->startScale = *parentTrackEventData.scale;
+    if (startScale.has_value()) {
+      instance->startScale = *startScale;
       transform->set_localScale(instance->startScale);
     }
   } else {
-    if (parentTrackEventData.pos.has_value()) {
-      transform->set_position(instance->startPos);
-    } else if (parentTrackEventData.localPos.has_value()) {
-      transform->set_localPosition(instance->startPos);
-    }
+    // delegate to GameObjectTrackController
+    instance->enabled = false;
+    // TODO: Left handed
+    parentTrackEventData.transformData.Apply(transform, false, false);
 
-    if (parentTrackEventData.rot.has_value()) {
-      transform->set_localRotation(instance->startRot);
-    } else if (parentTrackEventData.localRot.has_value()) {
-      transform->set_localRotation(instance->startLocalRot);
-    }
-
-    if (parentTrackEventData.scale.has_value()) {
-      transform->set_localScale(instance->startScale);
-    }
+    std::array<TrackW, 1> _tracks = { parentTrackEventData.parentTrack };
+    Tracks::GameObjectTrackController::HandleTrackData(
+        parentGameObject, _tracks, StaticBeatmapObjectSpawnMovementData::kNoteLinesDistance, false, false);
   }
 }
 

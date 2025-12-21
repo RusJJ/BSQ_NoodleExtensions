@@ -10,35 +10,31 @@ using namespace NEVector;
 
 AnimationObjectData::AnimationObjectData(BeatmapAssociatedData& beatmapAD, rapidjson::Value const& animation, bool v2)
     : parsed(true) {
-  position =
-      beatmapAD.getPointDefinition( animation,
-                      v2 ? NoodleExtensions::Constants::V2_POSITION : NoodleExtensions::Constants::OFFSET_POSITION,
-                      Tracks::ffi::WrapBaseValueType::Vec3);
-  rotation =
-      beatmapAD.getPointDefinition( animation,
-                      v2 ? NoodleExtensions::Constants::V2_ROTATION : NoodleExtensions::Constants::OFFSET_ROTATION,
-                      Tracks::ffi::WrapBaseValueType::Quat);
-  scale = beatmapAD.getPointDefinition( animation,
-                          v2 ? NoodleExtensions::Constants::V2_SCALE : NoodleExtensions::Constants::SCALE,
-                          Tracks::ffi::WrapBaseValueType::Vec3);
-  localRotation =
-      beatmapAD.getPointDefinition( animation,
-                      v2 ? NoodleExtensions::Constants::V2_LOCAL_ROTATION : NoodleExtensions::Constants::LOCAL_ROTATION,
-                      Tracks::ffi::WrapBaseValueType::Quat);
-  dissolve = beatmapAD.getPointDefinition( animation,
-                             v2 ? NoodleExtensions::Constants::V2_DISSOLVE : NoodleExtensions::Constants::DISSOLVE,
-                             Tracks::ffi::WrapBaseValueType::Float);
-  dissolveArrow =
-      beatmapAD.getPointDefinition( animation,
-                      v2 ? NoodleExtensions::Constants::V2_DISSOLVE_ARROW : NoodleExtensions::Constants::DISSOLVE_ARROW,
-                      Tracks::ffi::WrapBaseValueType::Float);
-  cuttable = beatmapAD.getPointDefinition( animation,
-                             v2 ? NoodleExtensions::Constants::V2_CUTTABLE : NoodleExtensions::Constants::INTERACTABLE,
-                             Tracks::ffi::WrapBaseValueType::Float);
-  definitePosition = beatmapAD.getPointDefinition( animation,
-                                     v2 ? NoodleExtensions::Constants::V2_DEFINITE_POSITION
-                                        : NoodleExtensions::Constants::DEFINITE_POSITION,
-                                     Tracks::ffi::WrapBaseValueType::Vec3);
+  position = beatmapAD.getPointDefinition(
+      animation, v2 ? NoodleExtensions::Constants::V2_POSITION : NoodleExtensions::Constants::OFFSET_POSITION,
+      Tracks::ffi::WrapBaseValueType::Vec3);
+  rotation = beatmapAD.getPointDefinition(
+      animation, v2 ? NoodleExtensions::Constants::V2_ROTATION : NoodleExtensions::Constants::OFFSET_ROTATION,
+      Tracks::ffi::WrapBaseValueType::Quat);
+  scale = beatmapAD.getPointDefinition(animation,
+                                       v2 ? NoodleExtensions::Constants::V2_SCALE : NoodleExtensions::Constants::SCALE,
+                                       Tracks::ffi::WrapBaseValueType::Vec3);
+  localRotation = beatmapAD.getPointDefinition(
+      animation, v2 ? NoodleExtensions::Constants::V2_LOCAL_ROTATION : NoodleExtensions::Constants::LOCAL_ROTATION,
+      Tracks::ffi::WrapBaseValueType::Quat);
+  dissolve = beatmapAD.getPointDefinition(
+      animation, v2 ? NoodleExtensions::Constants::V2_DISSOLVE : NoodleExtensions::Constants::DISSOLVE,
+      Tracks::ffi::WrapBaseValueType::Float);
+  dissolveArrow = beatmapAD.getPointDefinition(
+      animation, v2 ? NoodleExtensions::Constants::V2_DISSOLVE_ARROW : NoodleExtensions::Constants::DISSOLVE_ARROW,
+      Tracks::ffi::WrapBaseValueType::Float);
+  cuttable = beatmapAD.getPointDefinition(
+      animation, v2 ? NoodleExtensions::Constants::V2_CUTTABLE : NoodleExtensions::Constants::INTERACTABLE,
+      Tracks::ffi::WrapBaseValueType::Float);
+  definitePosition = beatmapAD.getPointDefinition(animation,
+                                                  v2 ? NoodleExtensions::Constants::V2_DEFINITE_POSITION
+                                                     : NoodleExtensions::Constants::DEFINITE_POSITION,
+                                                  Tracks::ffi::WrapBaseValueType::Vec3);
 }
 
 ObjectCustomData::ObjectCustomData(rapidjson::Value const& customData, CustomJSONData::CustomNoteData* noteData,
@@ -153,16 +149,11 @@ ParentTrackEventData::ParentTrackEventData(rapidjson::Value const& eventData, Be
     childrenTracks = { beatmapAD.getTrack(rawChildrenTracks.GetString()) };
   }
 
-  pos = NEJSON::ReadOptionalVector3(eventData, v2 ? NoodleExtensions::Constants::V2_POSITION
-                                                  : NoodleExtensions::Constants::OFFSET_POSITION);
-  localPos = NEJSON::ReadOptionalVector3(eventData, v2 ? NoodleExtensions::Constants::V2_LOCAL_POSITION
-                                                       : NoodleExtensions::Constants::LOCAL_POSITION);
-  rot = NEJSON::ReadOptionalRotation(eventData, v2 ? NoodleExtensions::Constants::V2_ROTATION
-                                                   : NoodleExtensions::Constants::WORLD_ROTATION);
-  localRot = NEJSON::ReadOptionalRotation(eventData, v2 ? NoodleExtensions::Constants::V2_LOCAL_ROTATION
-                                                        : NoodleExtensions::Constants::LOCAL_ROTATION);
-  scale = NEJSON::ReadOptionalVector3(eventData,
-                                      v2 ? NoodleExtensions::Constants::V2_SCALE : NoodleExtensions::Constants::SCALE);
+  offsetPosition = NEJSON::ReadOptionalVector3(eventData, v2 ? NoodleExtensions::Constants::V2_POSITION
+                                                             : NoodleExtensions::Constants::OFFSET_POSITION);
+  worldRotation = NEJSON::ReadOptionalRotation(eventData, v2 ? NoodleExtensions::Constants::V2_ROTATION
+                                                             : NoodleExtensions::Constants::WORLD_ROTATION);
+  transformData = Tracks::TransformData(eventData, v2);
 
   worldPositionStays = NEJSON::ReadOptionalBool(eventData, v2 ? NoodleExtensions::Constants::V2_WORLD_POSITION_STAYS
                                                               : NoodleExtensions::Constants::WORLD_POSITION_STAYS)

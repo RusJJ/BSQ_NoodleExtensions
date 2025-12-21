@@ -7,6 +7,7 @@
 
 #include "tracks/shared/Animation/Track.h"
 #include "tracks/shared/AssociatedData.h"
+#include "tracks/shared/Animation/TransformData.hpp"
 
 #include "Constants.hpp"
 
@@ -123,14 +124,13 @@ struct PlayerTrackEventData {
 struct ParentTrackEventData {
   explicit ParentTrackEventData(rapidjson::Value const& eventData, TracksAD::BeatmapAssociatedData& beatmapAD, bool v2);
 
-  TrackW parentTrack;
-  std::optional<NEVector::Vector3> pos;
-  std::optional<NEVector::Vector3> localPos;
-  std::optional<NEVector::Quaternion> rot;
-  std::optional<NEVector::Quaternion> localRot;
-  std::optional<NEVector::Vector3> scale;
-  bool worldPositionStays;
   std::vector<TrackW> childrenTracks;
+  std::optional<NEVector::Vector3> offsetPosition;
+  TrackW parentTrack;
+  Tracks::TransformData transformData;
+  std::optional<NEVector::Quaternion> worldRotation;
+  bool worldPositionStays;
+
 };
 
 struct BeatmapEventAssociatedData {
