@@ -42,6 +42,7 @@ static float GetSpawnAheadTime(BeatmapObjectSpawnController::InitData* initData,
 inline float ObjectSortGetTime(BeatmapDataItem* n) {
   static auto* customObstacleDataClass = classof(CustomJSONData::CustomObstacleData*);
   static auto* customNoteDataClass = classof(CustomJSONData::CustomNoteData*);
+  static auto* customSliderDataClass = classof(CustomJSONData::CustomSliderData*);
 
   float* aheadTime;
   CustomJSONData::JSONWrapper* customDataWrapper;
@@ -52,6 +53,10 @@ inline float ObjectSortGetTime(BeatmapDataItem* n) {
     customDataWrapper = obstacle->customData;
   } else if (n->klass == customNoteDataClass) {
     auto* note = reinterpret_cast<CustomJSONData::CustomNoteData*>(n);
+    aheadTime = &note->aheadTimeNoodle;
+    customDataWrapper = note->customData;
+  }else if (n->klass == customSliderDataClass) {
+    auto* note = reinterpret_cast<CustomJSONData::CustomSliderData*>(n);
     aheadTime = &note->aheadTimeNoodle;
     customDataWrapper = note->customData;
   } else {
