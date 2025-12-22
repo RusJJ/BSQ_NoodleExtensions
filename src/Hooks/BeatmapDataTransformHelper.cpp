@@ -240,11 +240,8 @@ MAKE_HOOK_MATCH(BeatmapDataTransformHelper_CreateTransformedBeatmapData,
   return result;
 }
 
-void HandleFakeObjects(SongCore::CustomJSONData::CustomLevelInfoSaveDataV2*, std::string const&,
-                       BeatmapSaveDataVersion3::BeatmapSaveData* unsafeBeatmap,
-                       GlobalNamespace::BeatmapDataBasicInfo* basic) {
+void HandleFakeObjects(CustomJSONData::v3::CustomBeatmapSaveData* beatmap) {
   using namespace CustomJSONData::v3;
-  auto beatmap = il2cpp_utils::cast<CustomBeatmapSaveData>(unsafeBeatmap);
   if (!beatmap->levelCustomData || !beatmap->customData) return;
 
   auto noodle = NoodleExtensions::SceneTransitionHelper::CheckIfNoodle(*beatmap->levelCustomData);
@@ -258,10 +255,10 @@ void HandleFakeObjects(SongCore::CustomJSONData::CustomLevelInfoSaveDataV2*, std
 #define PARSE_ARRAY(key, array, parse)                                                                                 \
   auto key##it = customData.FindMember(#key);                                                                          \
   if (key##it != customData.MemberEnd()) {                                                                             \
-    for (auto const& it : key##it->value.GetArray()) {                                                                 \
+    for (auto& it : key##it->value.GetArray()) {                                                                 \
       auto item = parse(it);                                                                                           \
       if (!item || !item->customData) continue;                                                                        \
-      item->customData.value().get().GetObject().AddMember(                                                            \
+      reinterpret_cast<rapidjson::Value&>(item->customData.value()).GetObject().AddMember(                                                            \
           rapidjson::StringRef(NoodleExtensions::Constants::INTERNAL_FAKE_NOTE.data()), rapidjson::Value(true).Move(),        \
           alloc);                                                                                                      \
     }                                                                                                                  \
@@ -271,13 +268,13 @@ void HandleFakeObjects(SongCore::CustomJSONData::CustomLevelInfoSaveDataV2*, std
    // ad.objectData.fake = true;                                                                                       \
       array->Add(item);                                                                                                \
 
-  basic->_obstaclesCount_k__BackingField = unsafeBeatmap->obstacles->_size;
-  basic->_cuttableNotesCount_k__BackingField = unsafeBeatmap->colorNotes->_size;
-  basic->_bombsCount_k__BackingField = unsafeBeatmap->bombNotes->_size;
+  // TODO: set counts properly
+  // basic->_obstaclesCount_k__BackingField = unsafeBeatmap->obstacles->_size;
+  // basic->_cuttableNotesCount_k__BackingField = unsafeBeatmap->colorNotes->_size;
+  // basic->_bombsCount_k__BackingField = unsafeBeatmap->bombNotes->_size;
 
   auto alloc = beatmap->doc->GetAllocator();
 
-  // TODO: Reimplement fake objects
   PARSE_ARRAY(fakeColorNotes, unsafeBeatmap->colorNotes, Parser::DeserializeColorNote);
   PARSE_ARRAY(fakeBombNotes, unsafeBeatmap->bombNotes, Parser::DeserializeBombNote);
   PARSE_ARRAY(fakeObstacles, unsafeBeatmap->obstacles, Parser::DeserializeObstacle);
@@ -287,7 +284,8 @@ void HandleFakeObjects(SongCore::CustomJSONData::CustomLevelInfoSaveDataV2*, std
 
 void InstallBeatmapDataTransformHelperHooks() {
   // Modloader::requireMod("CustomJSONData");
-  SongCore::API::Loading::GetSongsLoadedEvent() += HandleFakeObjects;
+  CustomJSONData::v3::Parser::ParsedEvent += HandleFakeObjects;
+  // SongCore::API::Loading::GetSongsLoadedEvent() += HandleFakeObjects;
   //  RuntimeSongLoader::API::AddBeatmapDataBasicInfoLoadedEvent(HandleFakeObjects);
 
   INSTALL_HOOK(NELogger::Logger, BeatmapDataTransformHelper_CreateTransformedBeatmapData);
