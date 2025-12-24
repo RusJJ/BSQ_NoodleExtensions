@@ -22,62 +22,63 @@
 using namespace GlobalNamespace;
 using namespace UnityEngine;
 
+// returns true to skip obstacle
+static bool BoundsNullCheck(ObstacleController* obstacleController) {
+  if (NEVector::Vector3(obstacleController->bounds.size) == NEVector::Vector3::zero()) {
+    return true;
+  }
+
+  auto customObstacleData = il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController);
+  if (!customObstacleData) {
+    return false;
+  }
+
+  auto const& ad = getAD(customObstacleData.value()->customData);
+  return ad.objectData.fake.value_or(false);
+}
+
 MAKE_HOOK_MATCH(PlayerHeadAndObstacleInteraction_RefreshIntersectingObstacles,
                 &PlayerHeadAndObstacleInteraction::RefreshIntersectingObstacles, void,
                 PlayerHeadAndObstacleInteraction* self, Vector3 worldPos) {
 
-    bool noodleHookEnabled = Hooks::isNoodleHookEnabled();
+  bool noodleHookEnabled = Hooks::isNoodleHookEnabled();
+  if (!noodleHookEnabled) {
+    return PlayerHeadAndObstacleInteraction_RefreshIntersectingObstacles(self, worldPos);
+  }
 
-    // TRANSPILE ORIGINAL START
-    int frameCount = UnityEngine::Time::get_frameCount();
-    if (self->_lastFrameNumCheck == frameCount) {
-      NELogger::Logger.debug("Skipping RefreshIntersectingObstacles call in frame {}", frameCount);
-      return;
+  int frameCount = Time::get_frameCount();
+  if (self->_lastFrameNumCheck == frameCount) {
+    return;
+  }
+  self->_lastFrameNumCheck = frameCount;
+  for (auto obstacleController :
+       ListW<UnityW<ObstacleController>>(self->_beatmapObjectManager->activeObstacleControllers)) {
+
+    // transpile start
+    if (BoundsNullCheck(obstacleController)) {
+      continue;
     }
-    self->_lastFrameNumCheck = frameCount;
+    // transpile end
 
-    for (auto& obstacleController : static_cast<ListW<UnityW<GlobalNamespace::ObstacleController>>>(self->_beatmapObjectManager->activeObstacleControllers)) {
-      // TODO: Maybe delete it? It's not supposed to be null here, will keep it just in case
-      if (!obstacleController) {
-        continue;
-      };
-
-      // Noodle Specific processing 
-      if (noodleHookEnabled) {
-        // Skip zero size obstacles 
-        if (NEVector::Vector3(obstacleController->bounds.get_size()) == NEVector::Vector3::zero()) {
-          continue;
-        }
- 
-        auto obstacleData = il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController->obstacleData);
-        if (obstacleData) {
-          auto& ad = getAD(obstacleData.value()->customData);
-          bool isFake = ad.objectData.fake.value_or(false);
-          if (isFake) {
-            continue;
-          }
-        };
-      }
-      /// Noodle Specific processing end
-      
-      if (!obstacleController  || obstacleController->get_isActiveAndEnabled()) {
-        if (!obstacleController->hasPassedAvoidedMark) {
-          auto vector = obstacleController->transform->InverseTransformPoint(worldPos);
-          if (obstacleController->bounds.Contains(vector)) {
-            if (!self->_intersectingObstacles->Contains(obstacleController)) {
-              self->_intersectingObstacles->Add(obstacleController);
-              auto* action = self->headDidEnterObstacleEvent;
-              if (action != nullptr) {
-                action->Invoke(obstacleController);
-              }
+    if (obstacleController->isActiveAndEnabled) {
+      if (!obstacleController->hasPassedAvoidedMark) {
+        Vector3 vector = obstacleController->transform->InverseTransformPoint(worldPos);
+        if (obstacleController->bounds.Contains(vector)) {
+          if (!self->_intersectingObstacles->Contains(obstacleController)) {
+            self->_intersectingObstacles->Add(obstacleController);
+            auto action = self->headDidEnterObstacleEvent;
+            if (action != nullptr) {
+              action->Invoke(obstacleController);
             }
-          } else {
-            self->_intersectingObstacles->Remove(obstacleController);
           }
+        } else {
+          self->_intersectingObstacles->Remove(obstacleController);
         }
+      } else if (obstacleController->hasPassedAvoidedMark) {
+        self->_intersectingObstacles->Remove(obstacleController);
       }
     }
-    // TRANSPILE ORIGINAL END
+  }
 }
 
 void InstallPlayerHeadAndObstacleInterationHooks() {
