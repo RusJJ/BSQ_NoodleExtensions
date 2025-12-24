@@ -1,3 +1,4 @@
+#include "VariableMovementHelper.hpp"
 #include "beatsaber-hook/shared/utils/hooking.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 
@@ -85,13 +86,16 @@ void NoteJump_ManualUpdateNoteLookTranspile(NoteJump* self, Transform* selfTrans
 MAKE_HOOK_MATCH(NoteJump_ManualUpdate, &NoteJump::ManualUpdate, Vector3, NoteJump* self) {
   if (!Hooks::isNoodleHookEnabled()) return NoteJump_ManualUpdate(self);
 
+  auto movement = VariableMovementW(self->_variableMovementDataProvider);
+
+
   if (!self->_missedMarkReported) {
-    self->_halfJumpDuration = self->_variableMovementDataProvider->halfJumpDuration;
-    self->_jumpDuration = self->_variableMovementDataProvider->jumpDuration;
-    self->_gravity = self->_variableMovementDataProvider->CalculateCurrentNoteJumpGravity(self->_gravityBase);
-    self->_startPos = Sombrero::FastVector3(self->_variableMovementDataProvider->moveEndPosition) +
+    self->_halfJumpDuration = movement.halfJumpDuration;
+    self->_jumpDuration = movement.jumpDuration;
+    self->_gravity = movement.CalculateCurrentNoteJumpGravity(self->_gravityBase);
+    self->_startPos = Sombrero::FastVector3(movement.moveEndPosition) +
                       Sombrero::FastVector3(self->_startOffset);
-    self->_endPos = Sombrero::FastVector3(self->_variableMovementDataProvider->jumpEndPosition) +
+    self->_endPos = Sombrero::FastVector3(movement.jumpEndPosition) +
                     Sombrero::FastVector3(self->_endOffset);
     self->_missedTime = self->_noteTime + 0.15f;
   }

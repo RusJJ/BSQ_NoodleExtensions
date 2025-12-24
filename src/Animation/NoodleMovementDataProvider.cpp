@@ -87,23 +87,40 @@ bool NoodleExtensions::NoodleMovementDataProvider::get_wasUpdatedThisFrame() {
 }
 
 float NoodleExtensions::NoodleMovementDataProvider::get_jumpDistance() {
-  return jumpDistanceOverride.value_or(original->get_jumpDistance());
+  if (!jumpDistanceOverride.has_value()) {
+    return original->get_jumpDistance();
+  }
+  return jumpDistanceOverride.value();
 }
 
 float NoodleExtensions::NoodleMovementDataProvider::get_jumpDuration() {
-  return jumpDurationOverride.value_or(original->get_jumpDuration());
+  if (!jumpDurationOverride.has_value()) {
+    return original->get_jumpDuration();
+  }
+  return jumpDurationOverride.value();
 }
 
 float NoodleExtensions::NoodleMovementDataProvider::get_halfJumpDuration() {
-  return halfJumpDurationOverride.value_or(original->get_halfJumpDuration());
+  if (!halfJumpDurationOverride.has_value()) {
+    return original->get_halfJumpDuration();
+  }
+  return halfJumpDurationOverride.value();
 }
 
 float NoodleExtensions::NoodleMovementDataProvider::get_moveDuration() {
-  return original->get_moveDuration();
+  // TODO: Revise if we want to allow overriding move duration
+  // return original->get_moveDuration();
+  
+  
+  // method resolves to this constant in vanilla
+  return GlobalNamespace::VariableMovementDataProvider::kMoveDuration;
 }
 
 float NoodleExtensions::NoodleMovementDataProvider::get_spawnAheadTime() {
-  return spawnAheadTimeOverride.value_or(original->get_spawnAheadTime());
+  if (!spawnAheadTimeOverride.has_value()) {
+    return original->get_spawnAheadTime();
+  }
+  return spawnAheadTimeOverride.value();
 }
 
 float NoodleExtensions::NoodleMovementDataProvider::get_waitingDuration() {
@@ -111,19 +128,31 @@ float NoodleExtensions::NoodleMovementDataProvider::get_waitingDuration() {
 }
 
 float NoodleExtensions::NoodleMovementDataProvider::get_noteJumpSpeed() {
-  return noteJumpSpeedOverride.value_or(original->get_noteJumpSpeed());
+  if (!noteJumpSpeedOverride.has_value()) {
+    return original->get_noteJumpSpeed();
+  }
+  return noteJumpSpeedOverride.value();
 }
 
 NEVector::Vector3 NoodleExtensions::NoodleMovementDataProvider::get_moveStartPosition() {
-  return moveStartPositionOverride.value_or(original->get_moveStartPosition());
+  if (!moveStartPositionOverride.has_value()) {
+    return original->get_moveStartPosition();
+  }
+  return moveStartPositionOverride.value();
 }
 
 NEVector::Vector3 NoodleExtensions::NoodleMovementDataProvider::get_moveEndPosition() {
-  return moveEndPositionOverride.value_or(original->get_moveEndPosition());
+  if (!moveEndPositionOverride.has_value()) {
+    return original->get_moveEndPosition();
+  }
+  return moveEndPositionOverride.value();
 }
 
 NEVector::Vector3 NoodleExtensions::NoodleMovementDataProvider::get_jumpEndPosition() {
-  return jumpEndPositionOverride.value_or(original->get_jumpEndPosition());
+  if (!jumpEndPositionOverride.has_value()) {
+    return original->get_jumpEndPosition();
+  }
+  return jumpEndPositionOverride.value();
 }
 
 void NoodleExtensions::NoodleMovementDataProvider::Init(

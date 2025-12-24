@@ -1,3 +1,4 @@
+#include "VariableMovementHelper.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 #include "beatsaber-hook/shared/utils/hooking.hpp"
 
@@ -35,14 +36,17 @@ static NEVector::Vector3 DefinitePositionTranspile(NEVector::Vector3 original, N
 
 MAKE_HOOK_MATCH(NoteFloorMovement_ManualUpdate, &NoteFloorMovement::ManualUpdate, Vector3, NoteFloorMovement* self) {
   if (!Hooks::isNoodleHookEnabled()) return NoteFloorMovement_ManualUpdate(self);
+  auto movement = VariableMovementW(self->_variableMovementDataProvider);
+
+
   float num = TimeSourceHelper::getSongTime(self->_audioTimeSyncController) -
-              (self->_beatTime - self->_variableMovementDataProvider->moveDuration -
-               self->_variableMovementDataProvider->halfJumpDuration);
+              (self->_beatTime - movement.moveDuration -
+               movement.halfJumpDuration);
 
   self->_localPosition = NEVector::Vector3::Lerp(
-      NEVector::Vector3(self->_variableMovementDataProvider->moveStartPosition) + self->_moveStartOffset,
-      NEVector::Vector3(self->_variableMovementDataProvider->moveEndPosition) + self->_moveEndOffset,
-      num / self->_variableMovementDataProvider->moveDuration);
+      NEVector::Vector3(movement.moveStartPosition) + self->_moveStartOffset,
+      NEVector::Vector3(movement.moveEndPosition) + self->_moveEndOffset,
+      num / movement.moveDuration);
   self->_localPosition = DefinitePositionTranspile(self->_localPosition, self);
 
   NEVector::Vector3 vector = NEVector::Quaternion(self->_worldRotation) * NEVector::Vector3(self->_localPosition);

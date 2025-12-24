@@ -1,4 +1,5 @@
 #include "NELogger.h"
+#include "VariableMovementHelper.hpp"
 #include "beatsaber-hook/shared/utils/hooking.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 #include "beatsaber-hook/shared/utils/typedefs-wrappers.hpp"
@@ -193,9 +194,10 @@ MAKE_HOOK_MATCH(NoteController_Init, &NoteController::Init, void, NoteController
   Vector3 moveStartPos = noteSpawnData->moveStartOffset;
   Vector3 moveEndPos = noteSpawnData->moveEndOffset;
   Vector3 jumpEndPos = noteSpawnData->jumpEndOffset;
+  auto movement = VariableMovementW(self->_noteMovement->_variableMovementDataProvider);
   float jumpGravity =
-      self->_noteMovement->_variableMovementDataProvider->CalculateCurrentNoteJumpGravity(noteSpawnData->gravityBase);
-  float halfJumpDuration = self->_noteMovement->_variableMovementDataProvider->halfJumpDuration;
+      movement.CalculateCurrentNoteJumpGravity(noteSpawnData->gravityBase);
+  float halfJumpDuration = movement.halfJumpDuration;
 
   float zOffset = self->_noteMovement->_zOffset;
   moveStartPos.z += zOffset;
@@ -252,7 +254,7 @@ MAKE_HOOK_MATCH(NoteController_ManualUpdate, &NoteController::ManualUpdate, void
 
   NoteJump* noteJump = self->_noteMovement->_jump;
   NoteFloorMovement* floorMovement = self->_noteMovement->_floorMovement;
-  IVariableMovementDataProvider* variableMovementDataProvider = self->_noteMovement->_variableMovementDataProvider;
+  VariableMovementW variableMovementDataProvider = self->_noteMovement->_variableMovementDataProvider;
 
 
 
@@ -261,7 +263,7 @@ MAKE_HOOK_MATCH(NoteController_ManualUpdate, &NoteController::ManualUpdate, void
   if (time) {
     normalTime = time.value();
   } else {
-    float jumpDuration = variableMovementDataProvider->jumpDuration;
+    float jumpDuration = variableMovementDataProvider.jumpDuration;
     float elapsedTime = TimeSourceHelper::getSongTime(noteJump->_audioTimeSyncController) -
                         (customNoteData->time - (jumpDuration * 0.5f));
     normalTime = elapsedTime / jumpDuration;
@@ -276,8 +278,8 @@ MAKE_HOOK_MATCH(NoteController_ManualUpdate, &NoteController::ManualUpdate, void
     floorMovement->_moveEndOffset = ad.moveEndPos + offsetPos;
     noteJump->_startOffset = ad.moveEndPos + offsetPos;
     noteJump->_endOffset = ad.jumpEndPos + offsetPos;
-    noteJump->_startPos = NEVector::Vector3(variableMovementDataProvider->moveEndPosition) + noteJump->_startOffset;
-    noteJump->_endPos = NEVector::Vector3(variableMovementDataProvider->jumpEndPosition) + noteJump->_endOffset;
+    noteJump->_startPos = NEVector::Vector3(variableMovementDataProvider.moveEndPosition) + noteJump->_startOffset;
+    noteJump->_endPos = NEVector::Vector3(variableMovementDataProvider.jumpEndPosition) + noteJump->_endOffset;
   }
 
   auto transform = self->get_transform();

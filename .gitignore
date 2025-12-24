@@ -1,6 +1,7 @@
 build/
 .idea*
 .cache
+binary_cache
 
 # Build files
 *.so
