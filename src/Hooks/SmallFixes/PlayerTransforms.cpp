@@ -33,6 +33,12 @@ MAKE_HOOK_MATCH(PlayerTransforms_Awake, &PlayerTransforms::Awake, void, PlayerTr
 }
 MAKE_HOOK_MATCH(PlayerTransforms_HeadsetOffsetZ, &PlayerTransforms::Update, void, PlayerTransforms* self) {
   if (!Hooks::isNoodleHookEnabled()) return PlayerTransforms_HeadsetOffsetZ(self);
+  if (self->_overrideHeadPos) return;
+
+  // Make sure to set _headWorldPos to prevent collissions with walls when player is moved.
+  if (UnityW<Transform> headTransform = self->_headTransform; headTransform.isAlive()) {
+    self->_headWorldPos =  headTransform.ptr()->position;
+  }
 
   if (self->_beatmapKey.hasValue && self->____beatmapKey.Value.beatmapCharacteristic->containsRotationEvents) {
     return;
