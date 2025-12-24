@@ -208,13 +208,13 @@ ObjectOffset AnimationHelper::GetObjectOffset(AnimationObjectData const& animati
 
       // all paths are non-null by now
       // Set final property values
-      offset.positionOffset = pathPosition.value() + combinedTrackPositions;
-      offset.rotationOffset = pathRotation.value() * combinedTrackRotations;
-      offset.scaleOffset = pathScale.value() * combinedTrackScales;
-      offset.localRotationOffset = pathLocalRotation.value() * combinedTrackLocalRotations;
-      offset.dissolve = pathDissolve.value() * combinedTrackDissolves;
-      offset.dissolveArrow = pathDissolveArrow.value() * combinedTrackDissolveArrows;
-      offset.cuttable = pathCuttable.value() * combinedTrackCuttables;
+      offset.positionOffset = pathPosition + combinedTrackPositions;
+      offset.rotationOffset = pathRotation * combinedTrackRotations;
+      offset.scaleOffset = pathScale * combinedTrackScales;
+      offset.localRotationOffset = pathLocalRotation * combinedTrackLocalRotations;
+      offset.dissolve = pathDissolve * combinedTrackDissolves;
+      offset.dissolveArrow = pathDissolveArrow * combinedTrackDissolveArrows;
+      offset.cuttable = pathCuttable * combinedTrackCuttables;
     }
   } else {
     // No tracks - use animation data only
