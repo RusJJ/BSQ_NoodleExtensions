@@ -26,6 +26,10 @@ public:
   static PlayerTrack* Create(PlayerTrackObject object);
   static void AssignTrack(TrackW track, PlayerTrackObject object);
 
+  static std::unordered_map<PlayerTrackObject, SafePtrUnity<PlayerTrack>> const& GetPlayerTracks() {
+    return playerTracks;
+  }
+
 private:
   static std::unordered_map<PlayerTrackObject, SafePtrUnity<PlayerTrack>> playerTracks;
   PlayerTrackObject trackObject;

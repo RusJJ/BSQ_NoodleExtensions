@@ -1,3 +1,4 @@
+#include "AssociatedData.h"
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 #include "beatsaber-hook/shared/utils/hooking.hpp"
 
@@ -8,6 +9,7 @@
 #include "GlobalNamespace/BeatmapCharacteristicSO.hpp"
 
 #include "NEHooks.h"
+#include "Animation/PlayerTrack.h"
 
 #include "tracks/shared/Vector.h"
 #include <optional>
@@ -15,7 +17,7 @@
 using namespace GlobalNamespace;
 using namespace UnityEngine;
 
-static Transform* _parentTransform;
+static UnityW<Transform> _parentTransform;
 static float HeadOffsetZ(Sombrero::FastVector3 headPsuedoLocalPos, Transform* originParentTransform) {
   // get magnitude in direction we care about rather than just z
   if (!_parentTransform) {
@@ -33,20 +35,61 @@ MAKE_HOOK_MATCH(PlayerTransforms_Awake, &PlayerTransforms::Awake, void, PlayerTr
 }
 MAKE_HOOK_MATCH(PlayerTransforms_HeadsetOffsetZ, &PlayerTransforms::Update, void, PlayerTransforms* self) {
   if (!Hooks::isNoodleHookEnabled()) return PlayerTransforms_HeadsetOffsetZ(self);
-  if (self->_overrideHeadPos) return;
+  if (self->_overrideHeadPos) return PlayerTransforms_HeadsetOffsetZ(self);
+
+  auto const& manager = TrackParenting::PlayerTrack::GetPlayerTracks();
+  if (manager.empty()) return PlayerTransforms_HeadsetOffsetZ(self);
+
+  // ensure we have a valid parent transform
+  if (!_parentTransform) {
+    _parentTransform = self->_originParentTransform;
+  }
 
   // Make sure to set _headWorldPos to prevent collissions with walls when player is moved.
   if (UnityW<Transform> headTransform = self->_headTransform; headTransform.isAlive()) {
-    self->_headWorldPos =  headTransform.ptr()->position;
+    self->_headWorldPos = headTransform->position;
+    self->_headWorldRot = headTransform->rotation;
   }
 
-  if (self->_beatmapKey.hasValue && self->____beatmapKey.Value.beatmapCharacteristic->containsRotationEvents) {
+  // head
+  {
+    if (auto it = manager.find(PlayerTrackObject::Head); it != manager.end()) {
+      auto headObject = it->second->transform;
+      if (headObject) {
+        self->_headPseudoLocalPos = headObject->InverseTransformPoint(self->_headWorldPos);
+        self->_headPseudoLocalRot =
+            NEVector::Quaternion(NEVector::Quaternion::Inverse(headObject->rotation)) * self->_headWorldRot;
+      }
+    }
+  }
+
+  // right hand
+  {
+    if (auto it = manager.find(PlayerTrackObject::RightHand); it != manager.end()) {
+      auto rightHandObject = it->second->transform;
+      if (rightHandObject) {
+        self->_rightHandPseudoLocalPos = rightHandObject->InverseTransformPoint(self->_rightHandTransform->position);
+        self->_rightHandPseudoLocalRot =
+            NEVector::Quaternion(NEVector::Quaternion::Inverse(rightHandObject->rotation)) *
+            self->_rightHandTransform->rotation;
+      }
+    }
+  }
+
+  // left hand
+  {
+    if (auto it = manager.find(PlayerTrackObject::LeftHand); it != manager.end()) {
+      auto leftHandObject = it->second->transform;
+      if (leftHandObject) {
+        self->_leftHandPseudoLocalPos = leftHandObject->InverseTransformPoint(self->_leftHandTransform->position);
+        self->_leftHandPseudoLocalRot = NEVector::Quaternion(NEVector::Quaternion::Inverse(leftHandObject->rotation)) *
+                                        self->_leftHandTransform->rotation;
+      }
+    }
+  }
+
+  if (self->_beatmapKey.hasValue && self->_beatmapKey.Value.beatmapCharacteristic->containsRotationEvents) {
     return;
-  }
-
-  if (!_parentTransform || _parentTransform->___m_CachedPtr.m_value == nullptr) {
-    _parentTransform = self->_originParentTransform;
-    // _noodlePlayerTransformManager.Active ? _noodlePlayerTransformManager.Head : originParentTransform;
   }
 
   self->_headPseudoLocalZOnlyPos = Sombrero::FastVector3(_parentTransform->forward) *
