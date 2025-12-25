@@ -20,125 +20,164 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [X] Fix parenting inconsistencies (likely order based e.g "Make a Wish")
 - [X] Fix obstacle spawn, duration and speed e.g `Try This` the arrows are in the lane before moved. 
 - [x] Fix obstacle rotation e.g flower in `Try`.
+- [ ] The texture on some scaled obstacles will bleed outside the obstacle
+- [ ] Obstacle dissolve apparently doesn't work above 1.37
 - [ ] Fix Chroma not overriding player's override environment and colors
+- [ ] Fix lighting
 
 ### [Recorded](https://drive.google.com/drive/folders/1XNpSEJ44uwEr9L9W3qukeGNnQX24wF0U?usp=drive_link) Maps
-
+Dates are (year/month/day)
+- [ ] [1015](https://beatsaver.com/maps/1f304) (25/12/23)
+  - [x] Crashes
+  - [ ] 0:00 Obstacles are missing their frame outline
+  - [x] 1:35 Weird environment geometry under player (Also 1.37)
+  - [ ] 1:51 Obstacle dissolve doesn't work
 - [ ] [Analys](https://beatsaver.com/maps/d00c) (25/11/25)
   - [ ] 0:50 The obstacles next to the player may not be positioned correctly
   - [ ] 0:56 Track does not rotate smoothly
   - [ ] 1:34 Circle of arrows despawn or does not follow player (Also 1.37)
-- [ ] [As the World Caves In](https://beatsaver.com/maps/210e3) (4/12/25)
+- [ ] [As the World Caves In](https://beatsaver.com/maps/210e3) (25/12/4)
   - [ ] [Awaiting analysis]
-- [ ] [BSSDHUYR Megamix 2023](https://beatsaver.com/maps/39736) (25/11/25)
-  - [ ] Crashes
-- [ ] [Centipede](https://beatsaver.com/maps/293ab) (4/12/25)
-  - [ ] [Awaiting analysis]
-- [ ] [Change of Scene](https://beatsaver.com/maps/3f19a) (4/12/25)
+- [ ] [BSSDHUYR Megamix 2023](https://beatsaver.com/maps/39736) (25/12/23)
+  - [x] Crashes
+  - [ ] Lighting is broken
+  - [ ] 1:50 Unintentional hyper walls
+  - [ ] 2:40 Floor obstacles don't move along the track
+  - [x] 3:20 Notes with base provider animated color are black (Also 1.37)
+  - [ ] 5:12 The "2023" wall text doesn't appear in the mirror
+  - [ ] 5:27 The "4" wall text doesn't glow the same as the rest of the wall text (Also 1.37)
+- [x] [Centipede](https://beatsaver.com/maps/293ab) (25/12/4)
+  - [x] So many notes missing
+- [ ] [Change of Scene](https://beatsaver.com/maps/3f19a) (25/12/4)
   - [x] Player is slightly elevated above the track
   - [x] 0:00 Title shows as CHANGE OF SCE--:
   - [x] 1:49 Track doesn't follow player
   - [ ] [Awaiting analysis]
-- [ ] [C18H27NO3 (Mawntee)](https://beatsaver.com/maps/17d7e) (26/11/25)
+- [ ] [C18H27NO3 (Mawntee)](https://beatsaver.com/maps/17d7e) (25/11/26)
   - [ ] [Awaiting analysis]
-- [ ] [Disaster](https://beatsaver.com/maps/1dc64) (4/12/25)
+- [ ] [Disaster](https://beatsaver.com/maps/1dc64) (25/12/4)
   - [ ] [Awaiting analysis]
-- [ ] [Doppelganger](https://beatsaver.com/maps/d53c) (25/11/25)
+- [ ] [Doppelganger](https://beatsaver.com/maps/d53c) (25/12/23)
   - [x] Audio being drowned out
   - [x] Obstacles are scaled weirdly
   - [x] Exaggerated note movement
   - [x] Note dissolve isn't removed
-  - [ ] 1:23 Obstacle is positioned weirdly
-  - [ ] 2:08 Obstacles are at the wrong Y position
-  - [ ] 3:04 Obstacle timing issues
+  - [x] 1:23 Obstacle is positioned weirdly
+  - [ ] 1:37 Obstacle scales while dissolving (currently just disabled)
+  - [x] 2:08 Obstacles are at the wrong Y position
+  - [x] 3:04 Obstacle timing issues
   - [x] 3:04 Track teleports with no smoothing
-- [ ] [Echo](https://beatsaver.com/maps/269a7) (4/12/25)
+- [ ] [Echo](https://beatsaver.com/maps/269a7) (25/12/4)
+  - [x] Environment cubes that make up the screen are missing
+  - [ ] Environment cubes that make up the screen are slightly smaller than intended
+  - [ ] Notes are being reflected in a mirror
+  - [ ] Environment spike things are positioned incorrectly or missing
   - [x] 2:20 Rotated tracks are missing
-  - [ ] [Awaiting analysis]
-- [ ] [Glorious Octagon of Destiny](https://beatsaver.com/maps/26ad0) (26/11/25)
-  - [ ] 0:19 "VIVA" text comes in from top and bottom rather than spinning in from sides
+- [ ] [Glorious Octagon of Destiny](https://beatsaver.com/maps/26ad0) (25/11/26)
+  - [x] 0:19 "VIVA" text comes in from top and bottom rather than spinning in from sides
   - [ ] 0:25 Obstacle field is missing (Also 1.37)
-  - [ ] 0:39 Obstacles are missing
+  - [x] 0:39 Obstacles are missing
   - [ ] 0:47 Note arrows don't disappear on cut (Also 1.37)
-  - [ ] 0:52 Unintentional hyper walls
+  - [x] 0:52 Unintentional hyper walls
   - [x] 1:16 The two tracks are positioned on top of each other
-  - [ ] 1:30 Unintentional fast walls
+  - [x] 1:30 Unintentional fast walls
   - [x] 1:44 Track doesn't rotate with player
-  - [ ] 1:44 More hyper walls
   - [ ] 1:47 Wall text doesn't move
-  - [ ] 2:32 Large note is normal scale in mirror
-  - [ ] 2:46 Some walls are unintentionally hyper, some aren't
-  - [ ] 3:05 Wall text is centered and doesn't scroll
-  - [ ] 3:14 Notes are missing
-  - [ ] 3:14 Obstacles are missing
-  - [ ] 4:00 "321" wall text is delivered as several very large grains of sugar in succession on the main track
+  - [x] 2:46 Some walls are unintentionally hyper, some aren't
+  - [x] 3:05 Wall text is centered and doesn't scroll
+  - [x] 3:14 Notes are missing
+  - [x] 3:14 Obstacles are missing
+  - [ ] 4:00 Many small white cubes float in the air
   - [x] 4:10 Notes and Super Hexagon obstacles are missing
-  - [ ] 4:31 "LEVEL FAILED" text is either further away or smaller than normal
-  - [ ] 4:31 Funny wall in first quadrant of recording
-  - [ ] 4:31 Notes are missing
-  - [ ] 4:52 Wall text is missing
-  - [ ] 5:21 Unintentional hyper walls
-  - [ ] 5:21 The "printing" obstacle doesn't move
-  - [ ] 5:33 Wall sign is far away
-  - [ ] 5:42 Notes are missing
+  - [x] 4:31 "LEVEL FAILED" text is either further away or smaller than normal
+  - [x] 4:31 Funny wall in first quadrant of recording
+  - [x] 4:31 Notes are missing
+  - [x] 4:52 Wall text is missing
+  - [x] 5:21 Unintentional hyper walls
+  - [x] 5:21 The "printing" obstacle doesn't move
+  - [x] 5:33 Wall sign is far away
+  - [ ] 5:33 Wall sign is difficult to see
+  - [x] 5:42 Notes are missing
   - [x] 5:57 Wall arrows are on top of each other
-  - [ ] 5:57 Wall arrows don't duplicate (Also 1.37)
-  - [ ] 6:09 Wall arrows don't disappear (Also 1.37)
+  - [x] 5:57 Wall arrows don't duplicate (Also 1.37)
+  - [ ] 6:09 Wall arrows don't fully disappear (Also 1.37)
   - [x] 6:26 Notes are positioned next to player
-  - [ ] 6:51 Unintentional hyper walls in Papyrus section
+  - [x] 6:51 Unintentional hyper walls in Papyrus section
   - [ ] 7:27 Wall text missing letters (Also 1.37)
-- [x] [IGDWUTSWHWHMTC (QueenChief)](https://beatsaver.com/maps/20bc7) (26/11/25)
-- [ ] [Make a Wish](https://beatsaver.com/maps/1a32d) (4/12/25)
-  - [x] Unintentional hyper walls
-  - [ ] [Awaiting analysis]
-- [ ] [Midnight Lady](https://beatsaver.com/maps/da60) (4/12/25)
+- [ ] [Heliov](https://beatsaver.com/maps/27ade) (25/12/23)
+  - [ ] Lighting is broken
+  - [ ] Fog is missing
+  - [ ] 0:00 Saber trail disappears and reappears several times
+  - [ ] 3:53 This environment scene can't be seen at all
+  - [ ] 4:12 Bottom part of environment seems cut off
+  - [ ] 4:15 Clouds are missing
+- [x] [IGDWUTSWHWHMTC (QueenChief)](https://beatsaver.com/maps/20bc7) (25/11/26)
+- [ ] [Lucy, The God Of Time](https://beatsaver.com/maps/15b16) (25/12/23)
+  - [ ] Some walls aren't glowy enough
+- [x] [Make a Wish](https://beatsaver.com/maps/1a32d) (25/12/4)
+  - [x] 0:40 Unintentional hyper walls
+- [ ] [Midnight Lady](https://beatsaver.com/maps/da60) (25/12/4)
   - [x] 0:46 Saxaphones have certain walls that rotate in opposite directions
   - [ ] [Awaiting analysis]
-- [ ] [Noodle Animation Stuff](https://beatsaver.com/maps/1a53c) (4/12/25)
+- [ ] [Noodle Animation Stuff](https://beatsaver.com/maps/1a53c) (25/12/4)
   - [ ] [Awaiting analysis]
 - [ ] [NULCTRL Meiso Flip](https://beatsaver.com/maps/ed2a) (25/11/25)
-  - [ ] [Awaiting analysis]
-- [ ] [Over Again](https://beatsaver.com/maps/2a093) (4/12/25)
+  - [ ] All the white glowing walls are slightly transparent instead of solid white
+  - [ ] 0:39 Walls are supposed to cover the wall text
+  - [ ] 1:09 Arrows animation begins with max offset instead of slowly increasing offset
+  - [ ] 1:18 Arrows are abnormally bright
+  - 1:38 Note for later fixes: These walls don't have bleeding textures
+- [ ] [Over Again](https://beatsaver.com/maps/2a093) (25/12/4)
   - [ ] [Awaiting analysis]
 - [ ] [Paradigm](https://beatsaver.com/maps/3bbb0) (25/11/25)
-  - [ ] Crashes
+  - [x] Crashes
+  - [ ] Lighting is broken
+  - [ ] Fog is missing (but maybe a PC only feature?)
+  - [ ] 1:16 Sabers appear to fly in from above instead of from the front
+  - [ ] 4:37 Head follows the sabers
+  - [ ] 6:49 Something is obscuring light rays below the horizon
 - [ ] [PAUSE](https://beatsaver.com/maps/17e36) (25/11/25)
   - [x] Notes are missing during the pause effect
   - [ ] 1:18 Unintentional hyper walls
-- [ ] [Pictured as Perfect](https://beatsaver.com/maps/3f6e7) (4/12/25)
+- [ ] [Pictured as Perfect](https://beatsaver.com/maps/3f6e7) (25/12/4)
   - [ ] [Awaiting analysis]
-- [x] [Real or Lie (Pixelguy)](https://beatsaver.com/maps/126e4) (26/11/25)
+- [x] [Real or Lie (Pixelguy)](https://beatsaver.com/maps/126e4) (25/11/26)
 - [ ] [Signager](https://beatsaver.com/maps/12498) (26/11/25)
   - [ ] [Awaiting analysis]
-- [ ] [Six Forty Seven (Reddek)](https://beatsaver.com/maps/2c89c) (4/12/25)
+- [ ] [Six Forty Seven (Reddek)](https://beatsaver.com/maps/2c89c) (25/12/4)
   - [x] All of the wall decorations are positioned very very wrong
   - [ ] [Awaiting analysis]
-- [ ] [Six Forty Seven (SuperMemer417, nasafrasa)](https://beatsaver.com/maps/2a2bd) (26/11/25)
+- [ ] [Six Forty Seven (SuperMemer417, nasafrasa)](https://beatsaver.com/maps/2a2bd) (25/11/26)
   - [ ] Environment pieces aren't being removed (Probably fixed, just needs a replay)
-- [ ] [Takeoff](https://beatsaver.com/maps/2c1ff) (4/12/25)
+- [ ] [Takeoff](https://beatsaver.com/maps/2c1ff) (25/12/4)
   - [ ] Crashes
-- [ ] [Try](https://beatsaver.com/maps/14d64) (4/12/25)
+- [ ] [Try](https://beatsaver.com/maps/14d64) (25/12/4)
   - [x] 0:00 Flower is messed up
   - [ ] [Awaiting analysis]
-- [ ] [Try This](https://beatsaver.com/maps/decf) (26/11/25)
+- [ ] [Try This](https://beatsaver.com/maps/decf) (25/11/26)
   - [x] Arrow walls disappear early
   - [ ] 0:31 Unintentional hyper wall
+- [x] [UUUUUUUUUUUUUUUUUUUUh](https://beatsaver.com/maps/217cf) (25/12/23)
+  - [x] 2:00 Platform isn't moved down
 - [ ] [Up & Down](https://beatsaver.com/maps/11cf8) (25/11/25)
   - [ ] Environment pieces aren't being removed
   - [x] 1:00 Animated notes spawn in late
-- [ ] [Up & Down (Remastered)](https://beatsaver.com/maps/2c2f4) (4/12/25)
+- [ ] [Up & Down (Remastered)](https://beatsaver.com/maps/2c2f4) (25/12/23)
+  - [ ] Large column environment pieces are missing
   - [x] 0:03 Track doesn't rotate with the player
-  - [ ] 0:33 Decorative obstacles are missing
-  - [ ] 0:33 Half the notes are missing
-  - [ ] 1:05 Notes are supposed to change color, instead aren't visible
-  - [ ] 1:54 Tease notes are missing
-  - [ ] [Awaiting analysis]
+  - [x] 0:33 Decorative obstacles are missing
+  - [x] 0:33 Half the notes are missing
+  - [x] 1:05 Notes are missing
+  - [ ] 1:05 Notes don't change color
+  - [x] 1:54 Tease notes are missing
+- [ ] [Wavetapper](https://beatsaver.com/maps/26660) (25/12/23)
+  - [ ] White background is missing
 
 ## Bonus 1.40.8 fixes / features
 
 These would be nice to fix and implement, but were already broken / missing in 1.37 and therefore aren't required if I'm simply going for 1.37 parity.
 
-- [ ] Iirc saber animation was broken
+- [x] Iirc saber animation was broken
 
 
 ## FAQ (Frequently Asked Questions)
