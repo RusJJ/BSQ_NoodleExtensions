@@ -26,13 +26,10 @@
 using namespace GlobalNamespace;
 using namespace NEVector;
 
+// assigned in BeatmapObjectSpawnController::Start hook
 BeatmapObjectSpawnController* beatmapObjectSpawnController;
 
-MAKE_HOOK_MATCH(BeatmapObjectSpawnController_Start, &BeatmapObjectSpawnController::Start, void,
-                BeatmapObjectSpawnController* self) {
-  beatmapObjectSpawnController = self;
-  BeatmapObjectSpawnController_Start(self);
-}
+
 
 MAKE_HOOK_MATCH(GetSliderSpawnData, &BeatmapObjectSpawnMovementData::GetSliderSpawnData, SliderSpawnData,
                 BeatmapObjectSpawnMovementData* self, SliderData* normalSliderData) {
@@ -165,7 +162,6 @@ MAKE_HOOK_MATCH(GetJumpingNoteSpawnData, &BeatmapObjectSpawnMovementData::GetJum
 void InstallBeatmapObjectSpawnMovementDataHooks() {
   INSTALL_HOOK(NELogger::Logger, GetObstacleSpawnData);
   INSTALL_HOOK(NELogger::Logger, GetJumpingNoteSpawnData);
-  INSTALL_HOOK(NELogger::Logger, BeatmapObjectSpawnController_Start);
   INSTALL_HOOK(NELogger::Logger, GetSliderSpawnData)
 }
 
