@@ -43,20 +43,27 @@ MAKE_HOOK_MATCH(InstallBindings, &GameplayCoreInstaller::InstallBindings, void, 
   // NECaches::customBeatmapData =
   //     il2cpp_utils::cast<CustomJSONData::CustomBeatmapData>(self->_sceneSetupData->get_transformedBeatmapData());
 
-  NECaches::JumpOffsetYProvider = self->Container->Resolve<GlobalNamespace::IJumpOffsetYProvider*>();
-  NECaches::InitData = self->Container->Resolve<GlobalNamespace::BeatmapObjectSpawnController::InitData*>();
+  {
+    // https://github.com/Aeroluna/Heck/blob/master/NoodleExtensions/HarmonyPatches/SmallFixes/InitializedSpawnMovementData.cs
+    // this is needed to ensure that the spawn movement data is initialized before we use it
+    // to create our NoodleMovementDataProvider
+    NECaches::JumpOffsetYProvider = self->Container->Resolve<GlobalNamespace::IJumpOffsetYProvider*>();
+    NECaches::InitData = self->Container->Resolve<GlobalNamespace::BeatmapObjectSpawnController::InitData*>();
 
     // force it to start and set the variable
-  NECaches::beatmapObjectSpawnController = self->Container->Resolve<GlobalNamespace::BeatmapObjectSpawnController*>();
-  NECaches::VariableMovementDataProvider = self->Container->Resolve<GlobalNamespace::VariableMovementDataProvider*>();
-  NECaches::beatmapObjectSpawnController->Start();
-  // Avoid duplicating the callbacks
-  NECaches::beatmapObjectSpawnController->_beatmapCallbacksController->RemoveBeatmapCallback(NECaches::beatmapObjectSpawnController->_noteDataCallbackWrapper);
-  NECaches::beatmapObjectSpawnController->_beatmapCallbacksController->RemoveBeatmapCallback(NECaches::beatmapObjectSpawnController->_obstacleDataCallbackWrapper);
-  NECaches::beatmapObjectSpawnController->_beatmapCallbacksController->RemoveBeatmapCallback(NECaches::beatmapObjectSpawnController->_sliderDataCallbackWrapper);
+    NECaches::beatmapObjectSpawnController = self->Container->Resolve<GlobalNamespace::BeatmapObjectSpawnController*>();
+    NECaches::VariableMovementDataProvider = self->Container->Resolve<GlobalNamespace::VariableMovementDataProvider*>();
+    NECaches::beatmapObjectSpawnController->Start();
+    // Start is called by Unity later, we disable in a hook to prevent double start
 
-  NECaches::noodleMovementDataProviderPool =
-      std::make_shared<NoodleExtensions::Pool::NoodleMovementDataProviderPool>(75);
+    // Avoid duplicating the callbacks
+    // NECaches::beatmapObjectSpawnController->_beatmapCallbacksController->RemoveBeatmapCallback(NECaches::beatmapObjectSpawnController->_noteDataCallbackWrapper);
+    // NECaches::beatmapObjectSpawnController->_beatmapCallbacksController->RemoveBeatmapCallback(NECaches::beatmapObjectSpawnController->_obstacleDataCallbackWrapper);
+    // NECaches::beatmapObjectSpawnController->_beatmapCallbacksController->RemoveBeatmapCallback(NECaches::beatmapObjectSpawnController->_sliderDataCallbackWrapper);
+
+    NECaches::noodleMovementDataProviderPool =
+        std::make_shared<NoodleExtensions::Pool::NoodleMovementDataProviderPool>(75);
+  }
 }
 
 void InstallGameplayCoreInstallerHooks() {
