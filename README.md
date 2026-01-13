@@ -17,12 +17,19 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [ ] Remove wall adjustments. Not only do they look different, but they were first added to get around poorly acting distortion effects, which is a solved problem with GraphicsTweaks
 - [x] Investigate jump distance / speed
 - [ ] Implement saber trail parenting to player track
-- [X] Fix parenting inconsistencies (likely order based e.g "Make a Wish")
-- [X] Fix obstacle spawn, duration and speed e.g `Try This` the arrows are in the lane before moved. 
+- [x] Fix parenting inconsistencies (likely order based e.g "Make a Wish")
+- [x] Fix obstacle spawn, duration and speed e.g `Try This` the arrows are in the lane before moved. 
 - [x] Fix obstacle rotation e.g flower in `Try`.
-- [x] Fix V3 custom event animating offset position 
+- [x] Fix V3 custom event animating offset position
+- [ ] Fix notes being double counted / spawned
+- [ ] Fix CJD making some notes lose collision in BeatLeader replays
+- [ ] Fix Chroma RegEx (the assumed column problem in Up and Down Remastered)
+
+## 1.40.8 Optional To-Do
+
+- [x] Fix saber animations
 - [ ] The texture on some scaled obstacles will bleed outside the obstacle
-- [ ] Obstacle dissolve apparently doesn't work above 1.37
+- [ ] Obstacle frames dissolve but not the fill
 - [ ] Fix Chroma not overriding player's override environment and colors
 - [ ] Fix lighting
 
@@ -173,12 +180,6 @@ Dates are (year/month/day)
   - [x] 1:54 Tease notes are missing
 - [ ] [Wavetapper](https://beatsaver.com/maps/26660) (25/12/23)
   - [ ] White background is missing
-
-## Bonus 1.40.8 fixes / features
-
-These would be nice to fix and implement, but were already broken / missing in 1.37 and therefore aren't required if I'm simply going for 1.37 parity.
-
-- [x] Iirc saber animation was broken
 
 
 ## FAQ (Frequently Asked Questions)
