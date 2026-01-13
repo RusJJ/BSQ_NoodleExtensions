@@ -21,7 +21,7 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [x] Fix obstacle spawn, duration and speed e.g `Try This` the arrows are in the lane before moved. 
 - [x] Fix obstacle rotation e.g flower in `Try`.
 - [x] Fix V3 custom event animating offset position
-- [ ] Fix notes being double counted / spawned
+- [x] Fix notes being double spawned
 - [ ] Fix CJD making some notes lose collision in BeatLeader replays
 - [ ] Fix Chroma RegEx (the assumed column problem in Up and Down Remastered)
 

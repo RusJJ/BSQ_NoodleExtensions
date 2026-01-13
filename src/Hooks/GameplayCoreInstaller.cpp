@@ -50,6 +50,10 @@ MAKE_HOOK_MATCH(InstallBindings, &GameplayCoreInstaller::InstallBindings, void, 
   NECaches::beatmapObjectSpawnController = self->Container->Resolve<GlobalNamespace::BeatmapObjectSpawnController*>();
   NECaches::VariableMovementDataProvider = self->Container->Resolve<GlobalNamespace::VariableMovementDataProvider*>();
   NECaches::beatmapObjectSpawnController->Start();
+  // Avoid duplicating the callbacks
+  NECaches::beatmapObjectSpawnController->_beatmapCallbacksController->RemoveBeatmapCallback(NECaches::beatmapObjectSpawnController->_noteDataCallbackWrapper);
+  NECaches::beatmapObjectSpawnController->_beatmapCallbacksController->RemoveBeatmapCallback(NECaches::beatmapObjectSpawnController->_obstacleDataCallbackWrapper);
+  NECaches::beatmapObjectSpawnController->_beatmapCallbacksController->RemoveBeatmapCallback(NECaches::beatmapObjectSpawnController->_sliderDataCallbackWrapper);
 
   NECaches::noodleMovementDataProviderPool =
       std::make_shared<NoodleExtensions::Pool::NoodleMovementDataProviderPool>(75);
