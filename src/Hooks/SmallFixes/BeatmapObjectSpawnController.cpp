@@ -15,11 +15,13 @@ extern GlobalNamespace::BeatmapObjectSpawnController* beatmapObjectSpawnControll
 MAKE_HOOK_MATCH(BeatmapObjectSpawnController_Start, &GlobalNamespace::BeatmapObjectSpawnController::Start, void, GlobalNamespace::BeatmapObjectSpawnController* self) {
   beatmapObjectSpawnController = self;
 
-  BeatmapObjectSpawnController_Start(self);
-  if (!Hooks::isNoodleHookEnabled()) return;
+  if (!Hooks::isNoodleHookEnabled()) {
+    BeatmapObjectSpawnController_Start(self);
+    return;
+  }
+
   // avoid double start
   if (self->_isInitialized) return;
-
 
   BeatmapObjectSpawnController_Start(self);
 }
