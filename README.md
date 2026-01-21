@@ -22,7 +22,8 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [x] Fix obstacle rotation e.g flower in `Try`.
 - [x] Fix V3 custom event animating offset position
 - [x] Fix notes being double spawned
-- [ ] Fix CJD making some notes lose collision in BeatLeader replays
+- [ ] Fix CJD loading arcs and chains
+- [ ] Fix CJD VNJS
 - [ ] Fix Chroma RegEx (the assumed column problem in Up and Down Remastered)
 
 ## 1.40.8 Optional To-Do
