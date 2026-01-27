@@ -11,9 +11,9 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [x] Fix audio being drowned out for seemingly no reason. Common in Doppelganger. Perhaps an issue with walls?
 - [x] Fix notes looking towards (0, 0, 0). Maybe calculated in `src/hooks/NoteJump.cpp`
 - [x] Fix start beat offset
-- [ ] Fix no badcut
+- [ ] Implement no badcut
 - [x] Fix crashes when restarting a modchart
-- [ ] Fix crash when Replay tries to load a modchart replay
+- [x] Fix crash when Replay tries to load a modchart replay
 - [ ] Remove wall adjustments. Not only do they look different, but they were first added to get around poorly acting distortion effects, which is a solved problem with GraphicsTweaks
 - [x] Investigate jump distance / speed
 - [x] Implement saber trail parenting to player track
@@ -25,7 +25,7 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [x] Fix notes being double spawned
 - [x] Fix CJD loading arcs and chains
 - [ ] Fix CJD VNJS
-- [ ] Fix Chroma RegEx (the assumed column problem in Up and Down Remastered)
+- [ ] Fix Chroma identifying some objects (e.g. the large columns in Up and Down Remastered and many parts of 1015)
 - [ ] Beat Leader is generating invalid, corrupted replays and refrains from uploading them
 
 ## 1.40.8 Optional To-Do
@@ -162,6 +162,9 @@ Dates are (year/month/day)
   - [ ] Environment pieces aren't being removed (Probably fixed, just needs a replay)
 - [ ] [Takeoff](https://beatsaver.com/maps/2c1ff) (25/12/4)
   - [ ] Crashes
+- [ ] [Team Grimoire (Salty)](https://beatsaver.com/maps/4b476)
+  - [ ] [Awaiting analysis]
+  - [ ] [Very broken]
 - [ ] [Try](https://beatsaver.com/maps/14d64) (25/12/4)
   - [x] 0:00 Flower is messed up
   - [ ] [Awaiting analysis]
@@ -223,3 +226,4 @@ pwsh ./createqmod.ps1 noodle_extensions
 - Beatmap note/obstacle/bomb count (includes fakes)
 - Some maps such as Centipede by totally balloon have fake notes registered as real notes
 - Make Noodle only run on Noodle maps
+
