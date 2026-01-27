@@ -16,7 +16,8 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [ ] Fix crash when Replay tries to load a modchart replay
 - [ ] Remove wall adjustments. Not only do they look different, but they were first added to get around poorly acting distortion effects, which is a solved problem with GraphicsTweaks
 - [x] Investigate jump distance / speed
-- [ ] Implement saber trail parenting to player track
+- [x] Implement saber trail parenting to player track
+- [x] Fix saber trail culling
 - [x] Fix parenting inconsistencies (likely order based e.g "Make a Wish")
 - [x] Fix obstacle spawn, duration and speed e.g `Try This` the arrows are in the lane before moved. 
 - [x] Fix obstacle rotation e.g flower in `Try`.
