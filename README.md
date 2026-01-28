@@ -28,8 +28,9 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [x] Fix CJD loading arcs and chains
 - [ ] Fix fake notes
 - [x] Fix CJD VNJS
-- [ ] Fix Chroma identifying some objects (e.g. the large columns in Up and Down Remastered and many parts of 1015)
+- [x] Fix Chroma V2 position and localPosition missing kNoteLinesDistance
 - [ ] Beat Leader is generating invalid, corrupted replays and refrains from uploading them
+- [ ] Fix some walls not moving and or spawning e.g. `Dark Heart Surgery`
 
 ## 1.40.8 Optional To-Do
 
@@ -180,9 +181,10 @@ Dates are (year/month/day)
   - [ ] Environment pieces aren't being removed
   - [x] 1:00 Animated notes spawn in late
 - [ ] [Up & Down (Remastered)](https://beatsaver.com/maps/2c2f4) (25/12/23)
-  - [ ] Large column environment pieces are missing
+  - [x] Large column environment pieces are missing (26/1/28)
   - [x] 0:03 Track doesn't rotate with the player
   - [x] 0:33 Decorative obstacles are missing
+  - [ ] 0:33 Only the left decorative obstacle is missing (26/1/28)
   - [x] 0:33 Half the notes are missing
   - [x] 1:05 Notes are missing
   - [ ] 1:05 Notes don't change color
