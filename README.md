@@ -27,7 +27,7 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [x] Fix notes being double spawned
 - [x] Fix CJD loading arcs and chains
 - [ ] Fix fake notes
-- [ ] Fix CJD VNJS
+- [x] Fix CJD VNJS
 - [ ] Fix Chroma identifying some objects (e.g. the large columns in Up and Down Remastered and many parts of 1015)
 - [ ] Beat Leader is generating invalid, corrupted replays and refrains from uploading them
 
