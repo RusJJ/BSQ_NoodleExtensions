@@ -55,6 +55,9 @@ struct ObjectCustomData {
   std::optional<bool> uninteractable;
 
   // notes
+  bool disableBadCutDirection;
+  bool disableBadCutSaberType;
+  bool disableBadCutSpeed;
   std::optional<bool> disableNoteGravity;
   bool disableNoteLook;
   std::optional<std::string> link;

@@ -88,6 +88,12 @@ ObjectCustomData::ObjectCustomData(rapidjson::Value const& customData, CustomJSO
 
   // TODO: FLIP X
 
+  if (!v2) {
+    disableBadCutDirection = NEJSON::ReadOptionalBool(customData, NoodleExtensions::Constants::NOTE_BADCUT_DIRECTION_DISABLE).value_or(false);
+    disableBadCutSaberType = NEJSON::ReadOptionalBool(customData, NoodleExtensions::Constants::NOTE_BADCUT_SABERTYPE_DISABLE).value_or(false);
+    disableBadCutSpeed = NEJSON::ReadOptionalBool(customData, NoodleExtensions::Constants::NOTE_BADCUT_SPEED_DISABLE).value_or(false);
+  }
+
   disableNoteGravity = NEJSON::ReadOptionalBool(customData, v2 ? NoodleExtensions::Constants::V2_NOTE_GRAVITY_DISABLE
                                                                : NoodleExtensions::Constants::NOTE_GRAVITY_DISABLE);
   disableNoteLook = NEJSON::ReadOptionalBool(customData, v2 ? NoodleExtensions::Constants::V2_NOTE_LOOK_DISABLE
