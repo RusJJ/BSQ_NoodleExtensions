@@ -206,18 +206,6 @@ MAKE_HOOK_MATCH(ObstacleController_Init, &ObstacleController::Init, void, Obstac
 }
 
 static void ObstacleController_ManualUpdateTranspile(ObstacleController* self, float const elapsedTime) {
-
-  auto movement = VariableMovementW(self->_variableMovementDataProvider);
-
-  if (!self->_passedAvoidedMarkReported) {
-    self->_startTimeOffset = self->_obstacleData->get_time() - movement.moveDuration - movement.halfJumpDuration;
-    self->_passedThreeQuartersOfJumpDurationTime = movement.moveDuration + movement.jumpDuration * 0.75f;
-    self->_passedAvoidedMarkTime = movement.moveDuration + movement.halfJumpDuration + self->_obstacleDuration + 0.15f;
-    self->_finishMovementTime = movement.moveDuration + movement.jumpDuration + self->_obstacleDuration;
-    self->_startPos = NEVector::Vector3(movement.moveStartPosition) + self->_obstacleSpawnData.moveOffset;
-    self->_midPos = NEVector::Vector3(movement.moveEndPosition) + self->_obstacleSpawnData.moveOffset;
-    self->_endPos = NEVector::Vector3(movement.jumpEndPosition) + self->_obstacleSpawnData.moveOffset;
-  }
   // TRANSPILE HERE
   float num = elapsedTime;
   // TRANSPILE HERE
@@ -225,7 +213,7 @@ static void ObstacleController_ManualUpdateTranspile(ObstacleController* self, f
   self->transform->localPosition = NEVector::Quaternion(self->_worldRotation) * posForTime;
   self->_length = self->GetObstacleLength();
 
-  if (movement.wasUpdatedThisFrame) {
+  if (self->_variableMovementDataProvider->wasUpdatedThisFrame) {
     self->_stretchableObstacle->SetSizeAndOffset(self->_width, self->_height, self->_length,
                                                  TimeSourceHelper::getSongTime(self->_audioTimeSyncController));
   }
@@ -284,6 +272,16 @@ MAKE_HOOK_MATCH(ObstacleController_ManualUpdate, &ObstacleController::ManualUpda
   }
 
   VariableMovementW movement = VariableMovementW(self->_variableMovementDataProvider);
+
+  if (!self->_passedAvoidedMarkReported) {
+    self->_startTimeOffset = self->_obstacleData->get_time() - movement.moveDuration - movement.halfJumpDuration;
+    self->_passedThreeQuartersOfJumpDurationTime = movement.moveDuration + movement.jumpDuration * 0.75f;
+    self->_passedAvoidedMarkTime = movement.moveDuration + movement.halfJumpDuration + self->_obstacleDuration + 0.15f;
+    self->_finishMovementTime = movement.moveDuration + movement.jumpDuration + self->_obstacleDuration;
+    self->_startPos = NEVector::Vector3(movement.moveStartPosition) + self->_obstacleSpawnData.moveOffset;
+    self->_midPos = NEVector::Vector3(movement.moveEndPosition) + self->_obstacleSpawnData.moveOffset;
+    self->_endPos = NEVector::Vector3(movement.jumpEndPosition) + self->_obstacleSpawnData.moveOffset;
+  }
 
   float moveDuration = movement.moveDuration;
   float jumpDuration = movement.jumpDuration;
