@@ -4,12 +4,14 @@
 #include "GlobalNamespace/IVariableMovementDataProvider.hpp"
 
 // speed up interface calls
-struct BS_HOOKS_HIDDEN VariableMovementW {
-  GlobalNamespace::IVariableMovementDataProvider* variable;
-  NoodleExtensions::NoodleMovementDataProvider* ne;
 
-  VariableMovementW(GlobalNamespace::IVariableMovementDataProvider* variable) : variable(variable) {
-    ne = il2cpp_utils::try_cast<NoodleExtensions::NoodleMovementDataProvider>(variable).value_or(nullptr);
+template<typename Concrete>
+struct BS_HOOKS_HIDDEN VariableMovementWrapper {
+  GlobalNamespace::IVariableMovementDataProvider* variable;
+  Concrete* concrete;
+
+  VariableMovementWrapper(GlobalNamespace::IVariableMovementDataProvider* variable) : variable(variable) {
+    concrete = il2cpp_utils::try_cast<Concrete>(variable).value_or(nullptr);
   }
 
   operator GlobalNamespace::IVariableMovementDataProvider* () {
@@ -30,74 +32,77 @@ struct BS_HOOKS_HIDDEN VariableMovementW {
   __declspec(property(get = get_jumpEndPosition)) NEVector::Vector3 jumpEndPosition;
 
   bool get_wasUpdatedThisFrame() const {
-    if (!ne) return variable->get_wasUpdatedThisFrame();
+    if (!concrete) return variable->get_wasUpdatedThisFrame();
 
-    return ne->get_wasUpdatedThisFrame();
+    return concrete->get_wasUpdatedThisFrame();
   }
 
   float get_moveDuration() const {
-    if (!ne) return variable->get_moveDuration();
+    if (!concrete) return variable->get_moveDuration();
 
-    return ne->get_moveDuration();
+    return concrete->get_moveDuration();
   }
 
   float get_halfJumpDuration() const {
-    if (!ne) return variable->get_halfJumpDuration();
+    if (!concrete) return variable->get_halfJumpDuration();
 
-    return ne->get_halfJumpDuration();
+    return concrete->get_halfJumpDuration();
   }
 
   float get_jumpDistance() const {
-    if (!ne) return variable->get_jumpDistance();
+    if (!concrete) return variable->get_jumpDistance();
 
-    return ne->get_jumpDistance();
+    return concrete->get_jumpDistance();
   }
 
   float get_jumpDuration() const {
-    if (!ne) return variable->get_jumpDuration();
+    if (!concrete) return variable->get_jumpDuration();
 
-    return ne->get_jumpDuration();
+    return concrete->get_jumpDuration();
   }
 
   float get_spawnAheadTime() const {
-    if (!ne) return variable->get_spawnAheadTime();
+    if (!concrete) return variable->get_spawnAheadTime();
 
-    return ne->get_spawnAheadTime();
+    return concrete->get_spawnAheadTime();
   }
 
   float get_waitingDuration() const {
-    if (!ne) return variable->get_waitingDuration();
+    if (!concrete) return variable->get_waitingDuration();
 
-    return ne->get_waitingDuration();
+    return concrete->get_waitingDuration();
   }
 
   float get_noteJumpSpeed() const {
-    if (!ne) return variable->get_noteJumpSpeed();
+    if (!concrete) return variable->get_noteJumpSpeed();
 
-    return ne->get_noteJumpSpeed();
+    return concrete->get_noteJumpSpeed();
   }
 
   NEVector::Vector3 get_moveStartPosition() const {
-    if (!ne) return variable->get_moveStartPosition();
+    if (!concrete) return variable->get_moveStartPosition();
 
-    return ne->get_moveStartPosition();
+    return concrete->get_moveStartPosition();
   }
 
   NEVector::Vector3 get_moveEndPosition() const {
-    if (!ne) return variable->get_moveEndPosition();
+    if (!concrete) return variable->get_moveEndPosition();
 
-    return ne->get_moveEndPosition();
+    return concrete->get_moveEndPosition();
   }
 
   NEVector::Vector3 get_jumpEndPosition() const {
-    if (!ne) return variable->get_jumpEndPosition();
+    if (!concrete) return variable->get_jumpEndPosition();
 
-    return ne->get_jumpEndPosition();
+    return concrete->get_jumpEndPosition();
   }
 
   float CalculateCurrentNoteJumpGravity(float gravityBase) const {
-    if (!ne) return variable->CalculateCurrentNoteJumpGravity(gravityBase);
+    if (!concrete) return variable->CalculateCurrentNoteJumpGravity(gravityBase);
 
-    return ne->CalculateCurrentNoteJumpGravity(gravityBase);
+    return concrete->CalculateCurrentNoteJumpGravity(gravityBase);
   }
 };
+
+// default to NoodleMovementDataProvider
+using VariableMovementW = VariableMovementWrapper<NoodleExtensions::NoodleMovementDataProvider>;
