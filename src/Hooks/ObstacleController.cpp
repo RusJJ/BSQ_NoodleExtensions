@@ -205,7 +205,7 @@ MAKE_HOOK_MATCH(ObstacleController_Init, &ObstacleController::Init, void, Obstac
   setBounds();
 }
 
-static void ObstacleController_ManualUpdateTranspile(ObstacleController* self, float const elapsedTime) {
+static void ObstacleController_ManualUpdateTranspile(ObstacleController* self, float const elapsedTime, VariableMovementW movement) {
   // TRANSPILE HERE
   float num = elapsedTime;
   // TRANSPILE HERE
@@ -213,7 +213,7 @@ static void ObstacleController_ManualUpdateTranspile(ObstacleController* self, f
   self->transform->localPosition = NEVector::Quaternion(self->_worldRotation) * posForTime;
   self->_length = self->GetObstacleLength();
 
-  if (self->_variableMovementDataProvider->wasUpdatedThisFrame) {
+  if (movement.wasUpdatedThisFrame) {
     self->_stretchableObstacle->SetSizeAndOffset(self->_width, self->_height, self->_length,
                                                  TimeSourceHelper::getSongTime(self->_audioTimeSyncController));
   }
@@ -413,7 +413,7 @@ MAKE_HOOK_MATCH(ObstacleController_ManualUpdate, &ObstacleController::ManualUpda
   }
 
   auto animatedTimeAdjusted = obstacleTimeAdjust(self, elapsedTime, tracks);
-  return ObstacleController_ManualUpdateTranspile(self, animatedTimeAdjusted);
+  return ObstacleController_ManualUpdateTranspile(self, animatedTimeAdjusted, movement);
 }
 
 MAKE_HOOK_MATCH(ObstacleController_GetPosForTime, &ObstacleController::GetPosForTime, Vector3, ObstacleController* self,
