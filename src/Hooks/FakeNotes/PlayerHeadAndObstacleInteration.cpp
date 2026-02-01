@@ -28,7 +28,7 @@ static bool BoundsNullCheck(ObstacleController* obstacleController) {
     return true;
   }
 
-  auto customObstacleData = il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController);
+  auto customObstacleData = il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController->_obstacleData);
   if (!customObstacleData) {
     return false;
   }
