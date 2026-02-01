@@ -159,8 +159,8 @@ void LoadNoodleEvent(TracksAD::BeatmapAssociatedData& beatmapAD, CustomJSONData:
   if (!isType) {
     return;
   }
-  CRASH_UNLESS(customEventData->data);
-  rapidjson::Value const& eventData = *customEventData->data;
+  CRASH_UNLESS(customEventData->customData->value);
+  rapidjson::Value const& eventData = *customEventData->customData->value;
   auto& eventAD = getEventAD(customEventData);
 
   if (eventAD.parsed) return;

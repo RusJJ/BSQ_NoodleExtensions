@@ -9,11 +9,6 @@
 #include "tracks/shared/AssociatedData.h"
 #include "tracks/shared/Animation/TransformData.hpp"
 
-#include "Constants.hpp"
-
-#include "GlobalNamespace/CutoutEffect.hpp"
-#include "GlobalNamespace/DisappearingArrowControllerBase_1.hpp"
-#include "GlobalNamespace/CutoutAnimateEffect.hpp"
 #include <optional>
 
 namespace GlobalNamespace {
@@ -144,8 +139,11 @@ struct BeatmapEventAssociatedData {
   bool parsed = false;
 };
 
-BeatmapEventAssociatedData& getEventAD(CustomJSONData::CustomEventData const* customData);
-void clearEventADs();
+constexpr BeatmapEventAssociatedData& getEventAD(CustomJSONData::CustomEventData const* customData) {
+  std::any& ad = customData->customData->associatedData['N'];
+  if (!ad.has_value()) ad = std::make_any<BeatmapEventAssociatedData>();
+  return std::any_cast<BeatmapEventAssociatedData&>(ad);
+}
 
 constexpr BeatmapObjectAssociatedData& getAD(CustomJSONData::JSONWrapper* customData) {
   std::any& ad = customData->associatedData['N'];
