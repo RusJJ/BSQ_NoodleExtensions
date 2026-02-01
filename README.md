@@ -37,6 +37,7 @@ A port of the Noodle Extensions mod made originally for the PC version of Beat S
 - [ ] Obstacle frames dissolve but not the fill
 - [ ] Fix Chroma not overriding player's override environment and colors
 - [ ] Fix lighting in maps such as Paradigm, Change of Scene, and BSSDHUYR Megamix 2023
+- [ ] Rework material switching
 
 ### [Recorded](https://drive.google.com/drive/folders/1XNpSEJ44uwEr9L9W3qukeGNnQX24wF0U?usp=drive_link) Maps
 Dates are (year/month/day)
