@@ -19,7 +19,7 @@ MAKE_HOOK_MATCH(HandleNoteControllerNoteWasMissed, &BeatmapObjectManager::Handle
                 BeatmapObjectManager* self, NoteController* noteController) {
   if (!Hooks::isNoodleHookEnabled()) return HandleNoteControllerNoteWasMissed(self, noteController);
 
-  bool isFakeNote = FakeNoteHelper::GetFakeNote(noteController->noteData);
+  bool isFakeNote = FakeNoteHelper::GetFakeNote(noteController->_noteData);
   if (!isFakeNote) {
     HandleNoteControllerNoteWasMissed(self, noteController);
   }
@@ -49,7 +49,7 @@ MAKE_HOOK_MATCH(BeatmapObjectManager_HandleNoteControllerNoteWasCut,
     return BeatmapObjectManager_HandleNoteControllerNoteWasCut(self, noteController, noteCutInfo);
 
   // If not fake note or noteCutCoreEffectsSpawner is null
-  bool isFakeNote = FakeNoteHelper::GetFakeNote(noteController->noteData);
+  bool isFakeNote = FakeNoteHelper::GetFakeNote(noteController->_noteData);
   if (!isFakeNote) {
     BeatmapObjectManager_HandleNoteControllerNoteWasCut(self, noteController, noteCutInfo);
     return;

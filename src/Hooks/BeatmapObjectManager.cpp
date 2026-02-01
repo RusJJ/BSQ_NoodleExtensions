@@ -21,7 +21,7 @@ MAKE_HOOK_MATCH(BeatmapObjectManager_Note_Despawn,
                 void, BeatmapObjectManager* self, NoteController* noteController) {
   if (!Hooks::isNoodleHookEnabled()) return BeatmapObjectManager_Note_Despawn(self, noteController);
 
-  auto customNoteData = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(noteController->noteData);
+  auto customNoteData = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(noteController->_noteData);
 
   if (customNoteData && customNoteData.value()->customData && customNoteData.value()->customData->value) {
     auto const& tracks = TracksAD::getAD(customNoteData.value()->customData).tracks;
@@ -42,7 +42,7 @@ MAKE_HOOK_MATCH(BeatmapObjectManager_Obstacle_Despawn,
   if (!Hooks::isNoodleHookEnabled()) return BeatmapObjectManager_Obstacle_Despawn(self, obstacleController);
 
   auto customObstacleData =
-      il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController->obstacleData);
+      il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController->_obstacleData);
 
   if (customObstacleData && customObstacleData.value()->customData && customObstacleData.value()->customData->value) {
     auto const& tracks = TracksAD::getAD(customObstacleData.value()->customData).tracks;
@@ -63,7 +63,7 @@ MAKE_HOOK_MATCH(BeatmapObjectManager_Slider_Despawn,
   if (!Hooks::isNoodleHookEnabled()) return BeatmapObjectManager_Slider_Despawn(self, sliderController);
 
   auto customSliderData =
-      il2cpp_utils::try_cast<CustomJSONData::CustomSliderData>(sliderController->sliderData);
+      il2cpp_utils::try_cast<CustomJSONData::CustomSliderData>(sliderController->_sliderData);
 
   if (customSliderData && customSliderData.value()->customData && customSliderData.value()->customData->value) {
     auto const& tracks = TracksAD::getAD(customSliderData.value()->customData).tracks;
@@ -83,7 +83,7 @@ MAKE_HOOK_MATCH(BeatmapObjectManager_Note_Spawn, &GlobalNamespace::BeatmapObject
   if (!Hooks::isNoodleHookEnabled()) return BeatmapObjectManager_Note_Spawn(self, noteController, noteSpawnData);
   BeatmapObjectManager_Note_Spawn(self, noteController, noteSpawnData);
 
-  auto customNoteData = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(noteController->noteData);
+  auto customNoteData = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(noteController->_noteData);
   if (customNoteData && customNoteData.value()->customData && customNoteData.value()->customData->value) {
     auto const& tracks = TracksAD::getAD(customNoteData.value()->customData).tracks;
     if (!tracks.empty()) {
@@ -104,7 +104,7 @@ MAKE_HOOK_MATCH(BeatmapObjectManager_Obstacle_Spawn,
   BeatmapObjectManager_Obstacle_Spawn(self, obstacleController, obstacleSpawnData);
 
   auto customObstacleData =
-      il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController->obstacleData);
+      il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController->_obstacleData);
   if (customObstacleData && customObstacleData.value()->customData && customObstacleData.value()->customData->value) {
     auto const& tracks = TracksAD::getAD(customObstacleData.value()->customData).tracks;
     if (!tracks.empty()) {
@@ -124,7 +124,7 @@ MAKE_HOOK_MATCH(BeatmapObjectManager_Slider_Spawn,
   BeatmapObjectManager_Slider_Spawn(self, sliderController, sliderSpawnData);
 
   auto customSliderData =
-      il2cpp_utils::try_cast<CustomJSONData::CustomSliderData>(sliderController->sliderData);
+      il2cpp_utils::try_cast<CustomJSONData::CustomSliderData>(sliderController->_sliderData);
   if (customSliderData && customSliderData.value()->customData && customSliderData.value()->customData->value) {
     auto const& tracks = TracksAD::getAD(customSliderData.value()->customData).tracks;
     if (!tracks.empty()) {

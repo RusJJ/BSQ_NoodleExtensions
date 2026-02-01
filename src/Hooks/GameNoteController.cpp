@@ -26,7 +26,7 @@ MAKE_HOOK_MATCH(GameNoteController_HandleCut, &GameNoteController::HandleCut, vo
                 Vector3 cutDirVec, bool allowBadCut) {
   if (!Hooks::isNoodleHookEnabled()) return GameNoteController_HandleCut(self, saber, cutPoint, orientation, cutDirVec, allowBadCut);
 
-  auto customNoteData = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(self->noteData);
+  auto customNoteData = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(self->_noteData);
   if (customNoteData && customNoteData.value()->customData->value) {
     BeatmapObjectAssociatedData& ad = getAD(customNoteData.value()->customData);
     
@@ -38,7 +38,7 @@ MAKE_HOOK_MATCH(GameNoteController_HandleCut, &GameNoteController::HandleCut, vo
     if (disableBadCutDirection || disableBadCutSaberType || disableBadCutSpeed) {
       bool directionOK, speedOK, saberTypeOK;
       float cutDirDeviation, cutDirAngle;
-      NoteBasicCutInfoHelper::GetBasicCutInfo(self->_noteTransform, self->noteData->colorType, self->noteData->cutDirection, saber->saberType, saber->bladeSpeedForLogic,
+      NoteBasicCutInfoHelper::GetBasicCutInfo(self->_noteTransform, self->_noteData->colorType, self->_noteData->cutDirection, saber->saberType, saber->bladeSpeedForLogic,
                                               cutDirVec, self->_cutAngleTolerance, directionOK, speedOK, saberTypeOK, cutDirDeviation, cutDirAngle);
 
       if((disableBadCutDirection && !directionOK) || (disableBadCutSpeed && !speedOK) || (disableBadCutSaberType && !saberTypeOK)) {

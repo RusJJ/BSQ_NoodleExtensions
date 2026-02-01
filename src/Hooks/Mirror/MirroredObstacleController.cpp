@@ -28,7 +28,7 @@ MAKE_HOOK_MATCH(MirroredObstacleController_Mirror, &MirroredObstacleController::
 MAKE_HOOK_MATCH(MirroredObstacleController_UpdatePositionAndRotation,
                 &MirroredObstacleController::UpdatePositionAndRotation, void, MirroredObstacleController* self) {
   // static auto *customObstacleDataClass = classof(CustomJSONData::CustomObstacleData *);
-  // if (self->followedObstacle && self->followedObstacle->obstacleData->klass == customObstacleDataClass) {
+  // if (self->followedObstacle && self->followedObstacle->_obstacleData->klass == customObstacleDataClass) {
   if (Hooks::isNoodleHookEnabled()) {
     self->set_hide(true);
     return;

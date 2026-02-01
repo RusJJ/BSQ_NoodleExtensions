@@ -52,11 +52,11 @@ FakeNoteHelper::ObstacleFakeCheck(VList<GlobalNamespace::ObstacleController*> in
   //    auto filteredInner = List<GlobalNamespace::ObstacleController*>::New_ctor();
 
   for (auto const& obstacle : intersectingObstacles) {
-    if (!obstacle || !obstacle->obstacleData ||
-        il2cpp_utils::AssignableFrom<CustomJSONData::CustomObstacleData*>(obstacle->obstacleData->klass))
+    if (!obstacle || !obstacle->_obstacleData ||
+        il2cpp_utils::AssignableFrom<CustomJSONData::CustomObstacleData*>(obstacle->_obstacleData->klass))
       continue;
 
-    auto customData = reinterpret_cast<CustomJSONData::CustomObstacleData*>(obstacle->obstacleData)->customData;
+    auto customData = reinterpret_cast<CustomJSONData::CustomObstacleData*>(obstacle->_obstacleData)->customData;
 
     bool add = !customData || !customData->value;
 

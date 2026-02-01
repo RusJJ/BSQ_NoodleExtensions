@@ -39,8 +39,8 @@ MAKE_HOOK_MATCH(BeatmapObjectManager_SpawnObstacle, &BeatmapObjectManager::AddSp
   if (self->obstacleWasSpawnedEvent) self->obstacleWasSpawnedEvent->Invoke(obstacleController);
 
   if (self->obstacleWasAddedEvent)
-    self->obstacleWasAddedEvent->Invoke(obstacleController->obstacleData, obstacleSpawnData,
-                                        obstacleController->obstacleData->rotation);
+    self->obstacleWasAddedEvent->Invoke(obstacleController->_obstacleData, obstacleSpawnData,
+                                        obstacleController->_obstacleData->rotation);
 
   self->_allBeatmapObjects->Add(obstacleController->i___GlobalNamespace__IBeatmapObjectController());
   obstacleController->ManualUpdate();
@@ -50,7 +50,7 @@ MAKE_HOOK_MATCH(BeatmapObjectManager_SpawnObstacle, &BeatmapObjectManager::AddSp
 
   // POST FIX
   auto customObstacleData =
-      il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController->obstacleData);
+      il2cpp_utils::try_cast<CustomJSONData::CustomObstacleData>(obstacleController->_obstacleData);
   if (customObstacleData && customObstacleData.value()->customData) {
     BeatmapObjectAssociatedData& ad = getAD(customObstacleData.value()->customData);
     ad.doUnhide = true;

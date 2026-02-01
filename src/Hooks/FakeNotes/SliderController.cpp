@@ -12,7 +12,7 @@ using namespace GlobalNamespace;
 
 MAKE_HOOK_MATCH(SetSaberAttraction, &SliderController::SetSaberAttraction, void, SliderController* self, bool saberAttraction) {
   if (!Hooks::isNoodleHookEnabled()) return SetSaberAttraction(self, saberAttraction);
-  if(FakeNoteHelper::GetAttractableArc(self->sliderData) && saberAttraction) {
+  if(FakeNoteHelper::GetAttractableArc(self->_sliderData) && saberAttraction) {
     SetSaberAttraction(self, saberAttraction);
   }
 }

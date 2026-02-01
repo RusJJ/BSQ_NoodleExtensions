@@ -149,7 +149,7 @@ static void UpdateMirror(Transform* mirroredNoteTransform, Transform* followedOb
     initMirror = false;                                                                                                \
     if (!Hooks::isNoodleHookEnabled()) return;                                                                         \
     auto* followedNote = reinterpret_cast<GameNoteController*>(self->followedNote);                                    \
-    auto customNoteData = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(followedNote->noteData);              \
+    auto customNoteData = il2cpp_utils::try_cast<CustomJSONData::CustomNoteData>(followedNote->_noteData);              \
                                                                                                                        \
     if (customNoteData) {                                                                                              \
       BeatmapObjectAssociatedData& ad = getAD(customNoteData.value()->customData);                                     \

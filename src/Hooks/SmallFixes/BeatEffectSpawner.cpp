@@ -50,10 +50,10 @@ MAKE_HOOK_MATCH(BeatEffectSpawner_HandleNoteDidStartJump, &BeatEffectSpawner::Ha
   if (noteController->hidden) {
     return;
   }
-  if (noteController->noteData->time + 0.1f < self->_audioTimeSyncController->songTime) {
+  if (noteController->_noteData->time + 0.1f < self->_audioTimeSyncController->songTime) {
     return;
   }
-  ColorType colorType = noteController->noteData->colorType;
+  ColorType colorType = noteController->_noteData->colorType;
   Sombrero::FastColor color =
       (colorType != ColorType::None) ? self->_colorManager->ColorForType(colorType) : self->_bombColorEffect;
   auto beatEffect = self->_beatEffectPoolContainer->Spawn();

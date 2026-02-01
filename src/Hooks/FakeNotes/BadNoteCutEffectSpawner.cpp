@@ -16,7 +16,7 @@ MAKE_HOOK_MATCH(BadNoteCutEffectSpawner_HandleNoteWasCut, &BadNoteCutEffectSpawn
                 ByRef<GlobalNamespace::NoteCutInfo> noteCutInfo) {
   if (!Hooks::isNoodleHookEnabled()) return BadNoteCutEffectSpawner_HandleNoteWasCut(self, noteController, noteCutInfo);
 
-  if (!FakeNoteHelper::GetFakeNote(noteController->noteData)) {
+  if (!FakeNoteHelper::GetFakeNote(noteController->_noteData)) {
     BadNoteCutEffectSpawner_HandleNoteWasCut(self, noteController, noteCutInfo);
   }
 }
@@ -26,7 +26,7 @@ MAKE_HOOK_MATCH(BombCutSoundEffectManager_HandleNoteWasCut, &BombCutSoundEffectM
                 ByRef<GlobalNamespace::NoteCutInfo> noteCutInfo) {
   if (!Hooks::isNoodleHookEnabled()) return BombCutSoundEffectManager_HandleNoteWasCut(self, noteController, noteCutInfo);
 
-  if (!FakeNoteHelper::GetFakeNote(noteController->noteData)) {
+  if (!FakeNoteHelper::GetFakeNote(noteController->_noteData)) {
     BombCutSoundEffectManager_HandleNoteWasCut(self, noteController, noteCutInfo);
   }
 }

@@ -30,11 +30,11 @@ MAKE_HOOK_MATCH(BaseNoteVisuals_Awake, &BaseNoteVisuals::Awake, void, BaseNoteVi
       il2cpp_functions::class_is_assignable_from(ICubeNoteTypeProviderKlass, self->_noteController->klass)) {
     NoteController* noteController = static_cast<NoteController*>(self->_noteController.ptr());
 
-    if (!noteController->noteData) return;
+    if (!noteController->_noteData) return;
 
     DisappearingArrowControllerBase_1<GameNoteController*>* disappearingArrowController;
 
-    if (il2cpp_functions::class_is_assignable_from(CustomNoteDataKlass, noteController->noteData->klass)) {
+    if (il2cpp_functions::class_is_assignable_from(CustomNoteDataKlass, noteController->_noteData->klass)) {
       //        if (noteData->customData) {
       auto& ad = NECaches::getNoteCache(noteController);
 
