@@ -236,6 +236,7 @@ ObjectOffset AnimationHelper::GetObjectOffset(AnimationObjectData const& animati
     offset.rotationOffset = Animation::MirrorQuaternionNullable(offset.rotationOffset);
     offset.localRotationOffset = Animation::MirrorQuaternionNullable(offset.localRotationOffset);
     offset.positionOffset = Animation::MirrorVectorNullable(offset.positionOffset);
+    offset.scaleOffset = Animation::MirrorVectorNullable(offset.scaleOffset);
   }
 
   return offset;
