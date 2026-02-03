@@ -5,6 +5,8 @@
 #include "tracks/shared/Animation/Animation.h"
 #include "NEJSON.h"
 
+#include "Constants.hpp"
+
 using namespace TracksAD;
 using namespace NEVector;
 
@@ -189,21 +191,3 @@ PlayerTrackEventData::PlayerTrackEventData(TrackW track, std::optional<std::stri
   }
 }
 
-static std::unordered_map<CustomJSONData::CustomEventData const*, BeatmapEventAssociatedData> eventDataMap;
-static std::unordered_map<GlobalNamespace::BeatmapObjectData const*, ::BeatmapObjectAssociatedData> obstacleDataMap;
-
-::BeatmapEventAssociatedData& getEventAD(CustomJSONData::CustomEventData const* customData) {
-  return eventDataMap[customData];
-}
-
-void clearEventADs() {
-  eventDataMap.clear();
-}
-
-::BeatmapObjectAssociatedData& getAD(GlobalNamespace::BeatmapObjectData* objectData) {
-  return obstacleDataMap[objectData];
-}
-
-void clearObjectADs() {
-  obstacleDataMap.clear();
-}
