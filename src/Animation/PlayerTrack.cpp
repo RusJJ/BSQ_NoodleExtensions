@@ -13,8 +13,9 @@
 #include "GlobalNamespace/StaticBeatmapObjectSpawnMovementData.hpp"
 #include "System/Action.hpp"
 #include "NECaches.h"
+#include "Zenject/DiContainer.hpp"
 
-#include "UnityEngine/zzzz__Transform_def.hpp"
+#include "UnityEngine/Transform.hpp"
 #include "custom-types/shared/delegate.hpp"
 
 using namespace TrackParenting;

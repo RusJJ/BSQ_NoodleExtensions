@@ -24,6 +24,8 @@
 #include "NECaches.h"
 #include "SpawnDataHelper.h"
 
+#include "Zenject/DiContainer.hpp"
+
 using namespace GlobalNamespace;
 
 BeatmapCallbacksController* controller;

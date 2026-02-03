@@ -13,6 +13,8 @@
 #include "NEUtils.hpp"
 #include "tracks/shared/Json.h"
 
+#include "Constants.hpp"
+
 using namespace GlobalNamespace;
 using namespace CustomJSONData;
 

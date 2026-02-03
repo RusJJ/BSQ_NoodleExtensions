@@ -4,7 +4,6 @@
 #include "GlobalNamespace/IJumpOffsetYProvider.hpp"
 #include "GlobalNamespace/VariableMovementDataProvider.hpp"
 #include "NEObjectPool.hpp"
-#include "Zenject/DiContainer.hpp"
 #include "sombrero/shared/ColorUtils.hpp"
 #include "custom-json-data/shared/CustomBeatmapData.h"
 #include <memory>
@@ -25,6 +24,10 @@ class ObstacleDissolve;
 class ObstacleControllerBase;
 class CutoutAnimateEffect;
 } // namespace GlobalNamespace
+
+namespace Zenject {
+  class DiContainer;
+}
 
 class NECaches {
 public:
