@@ -12,8 +12,8 @@
 
 using namespace GlobalNamespace;
 
-MAKE_HOOK_MATCH(BeatmapDataMirrorTransform_CreateTransformedData, &BeatmapDataMirrorTransform::CreateTransformedData,
-                GlobalNamespace::IReadonlyBeatmapData*, GlobalNamespace::IReadonlyBeatmapData* beatmapData) {
+// MAKE_HOOK_MATCH(BeatmapDataMirrorTransform_CreateTransformedData, &BeatmapDataMirrorTransform::CreateTransformedData,
+//                 GlobalNamespace::IReadonlyBeatmapData*, GlobalNamespace::IReadonlyBeatmapData* beatmapData) {
   //    auto newBeatmap = BeatmapDataMirrorTransform_CreateTransformedData(beatmapData);
   //
   //    for (auto beatmapEventData :
@@ -40,10 +40,10 @@ MAKE_HOOK_MATCH(BeatmapDataMirrorTransform_CreateTransformedData, &BeatmapDataMi
   //    }
   //
   //    return newBeatmap;
-}
+// }
 
-void InstallBeatmapDataMirrorTransformHooks() {
+// void InstallBeatmapDataMirrorTransformHooks() {
   //    INSTALL_HOOK(NELogger::Logger, BeatmapDataMirrorTransform_CreateTransformedData);
-}
+// }
 
-NEInstallHooks(InstallBeatmapDataMirrorTransformHooks);
+// NEInstallHooks(InstallBeatmapDataMirrorTransformHooks);
