@@ -205,7 +205,8 @@ MAKE_HOOK_MATCH(ObstacleController_Init, &ObstacleController::Init, void, Obstac
   setBounds();
 }
 
-static void ObstacleController_ManualUpdateTranspile(ObstacleController* self, float const elapsedTime, VariableMovementW movement) {
+static void ObstacleController_ManualUpdateTranspile(ObstacleController* self, float const elapsedTime,
+                                                     VariableMovementW movement) {
   // TRANSPILE HERE
   float num = elapsedTime;
   // TRANSPILE HERE
@@ -285,7 +286,7 @@ MAKE_HOOK_MATCH(ObstacleController_ManualUpdate, &ObstacleController::ManualUpda
 
   float moveDuration = movement.moveDuration;
   float jumpDuration = movement.jumpDuration;
-  float obstacleDuration = self->_obstacleData->duration;
+  float obstacleDuration = self->_obstacleData->_duration_k__BackingField;
 
   float const songTime = TimeSourceHelper::getSongTime(self->_audioTimeSyncController);
   float const elapsedTime = songTime - self->_startTimeOffset;
@@ -445,7 +446,7 @@ MAKE_HOOK_MATCH(ObstacleController_GetPosForTime, &ObstacleController::GetPosFor
 
   float moveDuration = movement.moveDuration;
   float jumpDuration = movement.jumpDuration;
-  float obstacleDuration = self->_obstacleData->duration;
+  float obstacleDuration = self->_obstacleData->_duration_k__BackingField;
 
   float jumpTime = (time - moveDuration) / (jumpDuration + obstacleDuration);
   jumpTime = std::clamp(jumpTime, 0.0f, 1.0f);

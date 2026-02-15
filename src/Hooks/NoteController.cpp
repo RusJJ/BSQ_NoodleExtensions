@@ -91,8 +91,6 @@ NECaches::GetDisappearingArrowController(GlobalNamespace::MirroredGameNoteContro
 float noteTimeAdjust(float original, float jumpDuration) {
   if (noteTracks.empty()) return original;
 
-
-
   auto time = NoodleExtensions::getTimeProp(noteTracks);
 
   if (time) {
@@ -195,8 +193,7 @@ MAKE_HOOK_MATCH(NoteController_Init, &NoteController::Init, void, NoteController
   Vector3 moveEndPos = noteSpawnData->moveEndOffset;
   Vector3 jumpEndPos = noteSpawnData->jumpEndOffset;
   auto movement = VariableMovementW(self->_noteMovement->_variableMovementDataProvider);
-  float jumpGravity =
-      movement.CalculateCurrentNoteJumpGravity(noteSpawnData->gravityBase);
+  float jumpGravity = movement.CalculateCurrentNoteJumpGravity(noteSpawnData->gravityBase);
   float halfJumpDuration = movement.halfJumpDuration;
 
   float zOffset = self->_noteMovement->_zOffset;
@@ -256,8 +253,6 @@ MAKE_HOOK_MATCH(NoteController_ManualUpdate, &NoteController::ManualUpdate, void
   NoteFloorMovement* floorMovement = self->_noteMovement->_floorMovement;
   VariableMovementW variableMovementDataProvider = self->_noteMovement->_variableMovementDataProvider;
 
-
-
   auto time = NoodleExtensions::getTimeProp(noteTracks);
   float normalTime;
   if (time) {
@@ -265,7 +260,7 @@ MAKE_HOOK_MATCH(NoteController_ManualUpdate, &NoteController::ManualUpdate, void
   } else {
     float jumpDuration = variableMovementDataProvider.jumpDuration;
     float elapsedTime = TimeSourceHelper::getSongTime(noteJump->_audioTimeSyncController) -
-                        (customNoteData->time - (jumpDuration * 0.5f));
+                        (customNoteData->_time_k__BackingField - (jumpDuration * 0.5f));
     normalTime = elapsedTime / jumpDuration;
   }
 
@@ -310,8 +305,6 @@ MAKE_HOOK_MATCH(NoteController_ManualUpdate, &NoteController::ManualUpdate, void
 
     transform->set_localRotation(worldRotationQuaternion);
   }
-
-  
 
   auto& noteCache = NECaches::getNoteCache(self);
 

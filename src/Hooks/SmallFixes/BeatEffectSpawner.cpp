@@ -50,7 +50,7 @@ MAKE_HOOK_MATCH(BeatEffectSpawner_HandleNoteDidStartJump, &BeatEffectSpawner::Ha
   if (noteController->hidden) {
     return;
   }
-  if (noteController->_noteData->time + 0.1f < self->_audioTimeSyncController->songTime) {
+  if (noteController->_noteData->_time_k__BackingField + 0.1f < self->_audioTimeSyncController->_songTime) {
     return;
   }
   ColorType colorType = noteController->_noteData->colorType;
