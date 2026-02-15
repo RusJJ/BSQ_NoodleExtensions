@@ -308,7 +308,7 @@ MAKE_HOOK_MATCH(NoteController_ManualUpdate, &NoteController::ManualUpdate, void
 
   auto& noteCache = NECaches::getNoteCache(self);
 
-  bool noteDissolveConfig = getNEConfig().enableNoteDissolve.GetValue();
+  bool noteDissolveConfig = true; // getNEConfig().enableNoteDissolve.GetValue();
   bool hasDissolveOffset = offset.dissolve.has_value() || offset.dissolveArrow.has_value();
   bool isDissolving = offset.dissolve.value_or(0) > 0 || offset.dissolveArrow.value_or(0) > 0;
   if (hasDissolveOffset && noteCache.dissolveEnabled != isDissolving && noteDissolveConfig) {

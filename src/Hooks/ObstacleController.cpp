@@ -360,7 +360,7 @@ MAKE_HOOK_MATCH(ObstacleController_ManualUpdate, &ObstacleController::ManualUpda
   //   }
   // }
 
-  bool obstacleDissolveConfig = getNEConfig().enableObstacleDissolve.GetValue();
+  bool obstacleDissolveConfig = true; // getNEConfig().enableObstacleDissolve.GetValue();
   if (offset.dissolve.has_value()) {
     float dissolve;
 
