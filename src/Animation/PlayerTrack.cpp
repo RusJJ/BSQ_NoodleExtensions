@@ -178,7 +178,9 @@ void PlayerTrack::OnDestroy() {
   }
   trackController = nullptr;
   track = TrackW();
-  PlayerTrack::playerTracks[this->trackObject] = nullptr;
+  if (auto it = PlayerTrack::playerTracks.find(this->trackObject); it != PlayerTrack::playerTracks.end()) {
+    PlayerTrack::playerTracks.erase(it);
+  }
 }
 
 // V2
