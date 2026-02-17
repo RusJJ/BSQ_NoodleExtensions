@@ -144,7 +144,7 @@ ObjectOffset AnimationHelper::GetObjectOffset(AnimationObjectData const& animati
 
       // Macros to simplify getter code
       if (!pathPosition) pathPosition = track.v2 ? pathProperties.position : pathProperties.offsetPosition;
-      if (!pathRotation) pathRotation = pathProperties.rotation;
+      if (!pathRotation) pathRotation = track.v2 ? pathProperties.rotation : pathProperties.offsetRotation;
       if (!pathScale) pathScale = pathProperties.scale;
       if (!pathLocalRotation) pathLocalRotation = pathProperties.localRotation;
 
@@ -154,7 +154,7 @@ ObjectOffset AnimationHelper::GetObjectOffset(AnimationObjectData const& animati
 
       // Combine with track properties
       offset.positionOffset = pathPosition + (track.v2 ? properties.position : properties.offsetPosition);
-      offset.rotationOffset = pathRotation * properties.rotation;
+      offset.rotationOffset = pathRotation * (track.v2 ? properties.rotation : properties.offsetRotation);
       offset.scaleOffset = pathScale * properties.scale;
       offset.localRotationOffset = pathLocalRotation * properties.localRotation;
       offset.dissolve = pathDissolve * properties.dissolve;
@@ -169,7 +169,7 @@ ObjectOffset AnimationHelper::GetObjectOffset(AnimationObjectData const& animati
         pathPosition = Animation::addVector3s(positionPaths);
       }
       if (!pathRotation) {
-        auto rotationPaths = Animation::getPathPropertiesQuat(tracks, PropertyNames::Rotation, time);
+        auto rotationPaths = Animation::getPathPropertiesQuat(tracks, v2 ? PropertyNames::Rotation : PropertyNames::OffsetRotation, time);
         pathRotation = Animation::multiplyQuaternions(rotationPaths);
       }
       if (!pathScale) {
@@ -197,7 +197,7 @@ ObjectOffset AnimationHelper::GetObjectOffset(AnimationObjectData const& animati
       // Combine track properties with path properties
       auto trackPositions =
           Animation::getPropertiesVec3(tracks, v2 ? PropertyNames::Position : PropertyNames::OffsetPosition, {});
-      auto trackRotations = Animation::getPropertiesQuat(tracks, PropertyNames::Rotation, {});
+      auto trackRotations = Animation::getPropertiesQuat(tracks, v2 ? PropertyNames::Rotation : PropertyNames::OffsetRotation, {});
       auto trackScales = Animation::getPropertiesVec3(tracks, PropertyNames::Scale, {});
       auto trackLocalRotations = Animation::getPropertiesQuat(tracks, PropertyNames::LocalRotation, {});
       auto trackDissolves = Animation::getPropertiesFloat(tracks, PropertyNames::Dissolve, {});
